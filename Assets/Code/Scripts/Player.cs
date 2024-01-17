@@ -6,6 +6,10 @@ using UnityEngine;
 public class NewBehaviourScript : MonoBehaviour
 {
     public float playerSpeed = 0.5f;
+    private float _inputHorizontal;
+    private float _inputVertical;
+    [SerializeField] private float boundariesHorizontal = 8;
+    [SerializeField] private float boundariesVertical = 3;
 
     public GameObject projectilePrefab;
     
@@ -18,12 +22,39 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float amtToMove = Input.GetAxis("Horizontal") * playerSpeed * Time.deltaTime;
-        transform.Translate(Vector3.right * amtToMove);
-        if (Input.GetKeyDown(KeyCode.Space))
+        GetInput();
+    }
+
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    private void GetInput()
+    {
+        _inputHorizontal = Input.GetAxis("Horizontal");
+        _inputVertical = Input.GetAxis("Vertical");
+    }
+
+    private void Move()
+    {
+        transform.Translate( playerSpeed * Time.fixedDeltaTime * _inputHorizontal * Vector3.right);
+        transform.Translate( playerSpeed * Time.fixedDeltaTime * _inputVertical * Vector3.up);
+        if (transform.position.x > boundariesHorizontal)
         {
-            Console.WriteLine(transform.position.ToString());
-            Instantiate(projectilePrefab, new Vector3(transform.position.x, transform.position.y + (0.01f * transform.localScale.y ), transform.position.z) , Quaternion.identity);
+            transform.position = new Vector3(boundariesHorizontal, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x < -boundariesHorizontal)
+        {
+            transform.position = new Vector3(-boundariesHorizontal, transform.position.y, transform.position.z);
+        }
+        if (transform.position.y > boundariesVertical)
+        {
+            transform.position = new Vector3(transform.position.x, boundariesVertical, transform.position.z);
+        }
+        if (transform.position.y < -boundariesVertical)
+        {
+            transform.position = new Vector3(transform.position.x, -boundariesVertical, transform.position.z);
         }
     }
 }
