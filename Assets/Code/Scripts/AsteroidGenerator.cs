@@ -26,12 +26,6 @@ public class AsteroidGenerator : MonoBehaviour
 
     private void FixedUpdate()
     {
-        float random = Random.value;
-        if (Random.value < 0.1f)
-        {
-            Debug.Log("Asteroid");
-            Instantiate(projectilePrefab, new Vector3(Random.value * 20 - 10, 5, 0), Random.rotation);
-        }
 
 
     }
