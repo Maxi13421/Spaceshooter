@@ -38,8 +38,8 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate( playerSpeed * Time.fixedDeltaTime * _inputHorizontal * Vector3.right);
-        transform.Translate( playerSpeed * Time.fixedDeltaTime * _inputVertical * Vector3.up);
+        transform.Translate( playerSpeed * Time.fixedDeltaTime * _inputHorizontal * Vector3.right, Space.World);
+        transform.Translate( playerSpeed * Time.fixedDeltaTime * _inputVertical * Vector3.up, Space.World);
         if (transform.position.x > boundariesHorizontal)
         {
             transform.position = new Vector3(boundariesHorizontal, transform.position.y, transform.position.z);
