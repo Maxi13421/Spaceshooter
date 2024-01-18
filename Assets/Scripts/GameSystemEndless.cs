@@ -15,7 +15,7 @@ public class GameSystemEndless : MonoBehaviour
 
     private void Awake()
     {
-        _level = (GameObject)Resources.Load("Level", typeof(GameObject));
+        _level = (GameObject)Resources.Load("TestLevel", typeof(GameObject));
         GameObject level = Instantiate(_level);
     }
 

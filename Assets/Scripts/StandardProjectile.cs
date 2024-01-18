@@ -6,7 +6,7 @@ using UnityEngine;
 public class StandardProjectile : MonoBehaviour
 {
     public float projectileSpeed = 5;
-    public float damage = 5;
+    public float damage = 6;
     
     // Start is called before the first frame update
     void Start()
