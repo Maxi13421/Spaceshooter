@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Code.Scripts;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Player : MonoBehaviour
 {
     public float playerSpeed = 0.5f;
     private float _inputHorizontal;
@@ -13,6 +13,7 @@ public class NewBehaviourScript : MonoBehaviour
     private Weapon MainWeapon;
     [SerializeField] private float boundariesHorizontal = 8;
     [SerializeField] private float boundariesVertical = 3;
+    
 
     public GameObject projectilePrefab;
     
@@ -24,7 +25,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void Awake()
     {
-        MainWeapon = new StandardWeapon(new[] { transform.GetChild(0).position, transform.GetChild(1).position }, this.gameObject);
+        MainWeapon = new StandardWeapon(new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position-transform.position }, this);
     }
 
     // Update is called once per frame
