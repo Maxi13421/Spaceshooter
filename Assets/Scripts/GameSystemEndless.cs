@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameSystemEndless : MonoBehaviour
+public class GameSystemEndless : GameSystem
 {
     private GameObject _level;
 

@@ -26,6 +26,9 @@ public class Asteroid : Enemy
         if (hp <= 0)
         {
             gameObject.SetActive(false);
+            GameObject coin = Level.CoinPool.GetPooledObject();
+            coin.transform.position = transform.position;
+            coin.transform.parent = transform.parent;
         }
     }
 

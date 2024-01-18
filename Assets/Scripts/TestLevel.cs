@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 public class TestLevel : Level
@@ -14,6 +15,7 @@ public class TestLevel : Level
 
     private void Awake()
     {
+        base.Awake();
         _asteroid = (GameObject)Resources.Load("Asteroid/Asteroid", typeof(GameObject));
         _asteroidPool = new ObjectPool(_asteroid, 10);
     }

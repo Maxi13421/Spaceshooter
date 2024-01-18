@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private Weapon MainWeapon;
     [SerializeField] private float boundariesHorizontal = 8;
     [SerializeField] private float boundariesVertical = 3;
+    public int money;
     
 
     public GameObject projectilePrefab;
@@ -74,6 +75,16 @@ public class Player : MonoBehaviour
         if (_inputFireMain)
         {
             MainWeapon.Shoot();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            other.gameObject.SetActive(false);
+            money++;
+            Debug.Log(money.ToString());
         }
     }
 }
