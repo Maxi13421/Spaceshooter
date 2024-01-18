@@ -38,7 +38,6 @@ public class Player : MonoBehaviour
     {
         Move();
         FireMain();
-        Debug.Log(_inputFireMain.ToString());
     }
 
     private void GetInput()
