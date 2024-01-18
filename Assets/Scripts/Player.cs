@@ -57,7 +57,6 @@ public class Player : MonoBehaviour
         _inputVertical = Input.GetAxis("Vertical");
         _inputFireMain = Input.GetButton("FireMain");
         _inputBoost = Input.GetButton("Boost");
-        Debug.Log(_inputBoost.ToString());
     }
 
     private void Move()
