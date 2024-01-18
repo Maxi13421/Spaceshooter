@@ -392,8 +392,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 2
+  playerSpeedWithBoost: 5
   boundariesHorizontal: 7
   boundariesVertical: 3
+  cooldownUsagePerSecond: 1
+  cooldownRechargePerSecond: 0.2
+  cooldownMax: 1
   money: 0
   projectilePrefab: {fileID: 0}
 --- !u!212 &1032899888
