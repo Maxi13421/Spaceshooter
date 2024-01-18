@@ -7,12 +7,20 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float playerSpeed = 0.5f;
+    public float playerSpeedWithBoost = 5;
     private float _inputHorizontal;
     private float _inputVertical;
     private bool _inputFireMain;
-    private Weapon MainWeapon;
+    private bool _inputBoost;
+    private Weapon _mainWeapon;
     [SerializeField] private float boundariesHorizontal = 8;
     [SerializeField] private float boundariesVertical = 3;
+    public float cooldownUsagePerSecond = 1f;
+    public float cooldownRechargePerSecond = 0.2f;
+    public float cooldownMax = 2;
+    private float _cooldownCur;
+    private bool _useBoost;
+    private bool _boostEmpty = false;
     public int money;
     
 
@@ -26,7 +34,8 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        MainWeapon = new StandardWeapon(new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position-transform.position }, this);
+        _cooldownCur = cooldownMax;
+        _mainWeapon = new StandardWeapon(new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position-transform.position }, this);
     }
 
     // Update is called once per frame
@@ -37,6 +46,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        UpdateBoostCooldown();
         Move();
         FireMain();
     }
@@ -46,12 +56,24 @@ public class Player : MonoBehaviour
         _inputHorizontal = Input.GetAxis("Horizontal");
         _inputVertical = Input.GetAxis("Vertical");
         _inputFireMain = Input.GetButton("FireMain");
+        _inputBoost = Input.GetButton("Boost");
     }
 
     private void Move()
     {
-        transform.Translate( playerSpeed * Time.fixedDeltaTime * _inputHorizontal * Vector3.right, Space.World);
-        transform.Translate( playerSpeed * Time.fixedDeltaTime * _inputVertical * Vector3.up, Space.World);
+        if (_useBoost)
+        {
+            transform.Translate( playerSpeedWithBoost * Time.fixedDeltaTime * _inputHorizontal * Vector3.right, Space.World);
+            transform.Translate( playerSpeedWithBoost * Time.fixedDeltaTime * _inputVertical * Vector3.up, Space.World);
+        }
+        else
+        {
+            transform.Translate( playerSpeed * Time.fixedDeltaTime * _inputHorizontal * Vector3.right, Space.World);
+            transform.Translate( playerSpeed * Time.fixedDeltaTime * _inputVertical * Vector3.up, Space.World);
+        }
+        
+        
+        
         if (transform.position.x > boundariesHorizontal)
         {
             transform.position = new Vector3(boundariesHorizontal, transform.position.y, transform.position.z);
@@ -74,7 +96,7 @@ public class Player : MonoBehaviour
     {
         if (_inputFireMain)
         {
-            MainWeapon.Shoot();
+            _mainWeapon.Shoot();
         }
     }
 
@@ -85,6 +107,36 @@ public class Player : MonoBehaviour
             other.gameObject.SetActive(false);
             money++;
             Debug.Log(money.ToString());
+        }
+    }
+
+    private void UpdateBoostCooldown()
+    {
+        _cooldownCur += cooldownRechargePerSecond * Time.fixedDeltaTime;
+        if (_cooldownCur > cooldownMax)
+        {
+            _cooldownCur = cooldownMax;
+        }
+
+        if (_inputBoost)
+        {
+            if (_cooldownCur >= cooldownUsagePerSecond * Time.fixedDeltaTime && !_boostEmpty)
+            {
+                _cooldownCur -= cooldownUsagePerSecond * Time.fixedDeltaTime;
+                _useBoost = true;
+
+            }
+            else
+            {
+                _boostEmpty = true;
+                _useBoost = false;
+            }
+            
+        }
+        else
+        {
+            _useBoost = false;
+            _boostEmpty = false;
         }
     }
 }
