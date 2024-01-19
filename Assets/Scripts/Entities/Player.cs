@@ -42,6 +42,7 @@ public class Player : Entity
     {
         _cooldownCur = cooldownMax;
         _mainWeapon = new StandardWeapon(new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position-transform.position }, this);
+        GameSystem.Player = gameObject;
     }
 
     // Update is called once per frame
