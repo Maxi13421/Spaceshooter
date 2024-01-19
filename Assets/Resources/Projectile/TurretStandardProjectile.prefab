@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4505765340485579415}
   - component: {fileID: 5544452764298566971}
-  - component: {fileID: -4193760607344519725}
   - component: {fileID: 3813102454950747120}
+  - component: {fileID: -4027636881827942960}
   m_Layer: 0
-  m_Name: StandardProjectile
+  m_Name: TurretStandardProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 20769e25af9d28a4fa1cdc521f56fc76, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d133b405902d67246bb43b33b5908c42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,21 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-4193760607344519725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6682780489928433868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1596d5a6d35060a48a559b2e285860f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectileSpeed: 5
-  damage: 5
-  lifespan: 1
 --- !u!70 &3813102454950747120
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -136,3 +121,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.04291168, y: 0.032494992}
   m_Direction: 1
+--- !u!114 &-4027636881827942960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6682780489928433868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a095b66b6528f684898c90f4c79551ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpeed: 5
+  damage: 5
+  lifespan: 1
