@@ -15,7 +15,7 @@ public class GameSystemEndless : GameSystem
 
     private void Awake()
     {
-        _level = (GameObject)Resources.Load("TestLevel", typeof(GameObject));
+        _level = (GameObject)Resources.Load("Levels/TestLevel", typeof(GameObject));
         GameObject level = Instantiate(_level);
     }
 
