@@ -18,13 +18,13 @@ public class TestLevel : Level
     {
         transform.Translate(Time.fixedDeltaTime * speed * Vector3.left, Space.World);
         float currentSpawnXCoordinate = 9f + 5f;
-        if (Time.time-_lastSpawn>2f)
+        if (Time.time-_lastSpawn>4f)
         {
             _lastSpawn = Time.time;
-            GameObject o = HomingTurretPool.GetPooledObject();
+            GameObject o = ObstacleGenerator.GetObstacle(2,2);
             o.transform.parent = transform;
-            o.GetComponent<Enemy>().hp = 15;
-            o.GetComponent<Enemy>().currenthp = 15;
+            //o.GetComponent<Enemy>().hp = 15;
+            //o.GetComponent<Enemy>().currenthp = 15;
             o.transform.position = new Vector3(currentSpawnXCoordinate, 0, 0);
         }
     }
