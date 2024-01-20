@@ -18,8 +18,6 @@ public class Laser : Weapon
     { 
         RaycastHit2D[] hits = Physics2D.BoxCastAll(Player.transform.position, new Vector2(Width/2,Width/2), 0, Vector2.right,
             Camera.main.orthographicSize * Camera.main.aspect - Player.transform.position.x);
-        RaycastHit2D hits2 = BoxCastDrawer.BoxCastAndDraw(Player.transform.position, new Vector2(Width / 2, Width / 2), 0, Vector2.right,
-            Camera.main.orthographicSize * Camera.main.aspect - Player.transform.position.x);
 
         float xEnd = Camera.main.orthographicSize * Camera.main.aspect + 1;
         for (int i = 0; i < hits.Length; i++)
