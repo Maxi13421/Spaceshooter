@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -1969549633018917915}
   m_Layer: 0
   m_Name: Tile
-  m_TagString: Untagged
+  m_TagString: ObstacleTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,5 +156,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0001, y: 0.0001}
+  m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0

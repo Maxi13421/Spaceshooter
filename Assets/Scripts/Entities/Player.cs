@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Code.Scripts;
 using UnityEngine;
 
 public class Player : Entity
@@ -41,7 +40,8 @@ public class Player : Entity
     private void Awake()
     {
         _cooldownCur = cooldownMax;
-        _mainWeapon = new StandardWeapon(new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position-transform.position }, this);
+        _mainWeapon = new StandardWeapon(new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position-transform.position });
+        _mainWeapon = new Laser();
         GameSystem.Player = gameObject;
     }
 
@@ -104,6 +104,10 @@ public class Player : Entity
         if (_inputFireMain)
         {
             _mainWeapon.Shoot();
+        }
+        else
+        {
+            _mainWeapon.StopShooting();
         }
     }
 
