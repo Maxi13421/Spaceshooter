@@ -8,12 +8,9 @@ public class GameSystemEndless : GameSystem
     private GameObject _level;
 
     public int levelCount = 1;
-    void Start()
-    {
-        
-    }
+    
 
-    private void Awake()
+    protected void Awake()
     {
         _level = (GameObject)Resources.Load("Levels/TestLevel", typeof(GameObject));
         GameObject level = Instantiate(_level);

@@ -13,7 +13,7 @@ public abstract class GameSystem : MonoBehaviour
     protected float CameraSizeZoomedIn = 2;
     protected float CameraSizeZoomedOut = 5;
     protected Zoom ZoomStatus = Zoom.Level;
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         Player = GameObject.FindWithTag("Player");
         MainCameraGameObject = GameObject.FindWithTag("MainCamera");

@@ -39,6 +39,7 @@ public class ObstacleGenerator
                 }
                 Sprite sprite = sprites[spriteNumber];
                 tile.GetComponent<SpriteRenderer>().sprite = sprite;
+                //tile.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 tile.transform.position = new Vector3(0.32f * x , -0.32f * y, 0);
                 tile.transform.SetParent(obstacle.transform);
                 
