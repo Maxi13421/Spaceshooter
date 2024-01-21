@@ -1,32 +1,41 @@
+﻿
+
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : Enemy
+public abstract class Turret : Enemy
 {
+    
+    public ObjectPool ProjectilePool;
     public float shootingFrequency;
-    protected float lastShot;
+    protected float LastShot;
     protected Vector3[] WeaponPositions;
 
-    protected override void Awake()
+    protected virtual void Start()
     {
-        base.Awake();
-        WeaponPositions = new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position-transform.position};
+        ProjectilePool = Level.TurretShrapnelProjectilePool;
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (Time.time - lastShot >= shootingFrequency)
+        Shoot();
+        
+    }
+
+    protected void Shoot()
+    {
+        if (Time.time - LastShot >= shootingFrequency)
         {
-            lastShot = Time.time;
-            foreach (var weaponPosition in WeaponPositions)
+            LastShot = Time.time;
+            Vector3[] weaponPositions = new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position - transform.position};
+            foreach (var weaponPosition in weaponPositions)
             {
-                GameObject o = Level.TurretStandardProjectilePool.GetPooledObject();
+                GameObject o = ProjectilePool.GetPooledObject();
                 o.transform.position = transform.position + weaponPosition;
+                o.transform.right = -transform.up;
             }
         }
     }
-    
 }

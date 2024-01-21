@@ -74,9 +74,9 @@ GameObject:
   - component: {fileID: 6375586073884946114}
   - component: {fileID: 5539920247576118246}
   - component: {fileID: 413521473968947485}
-  - component: {fileID: -6409355453653856867}
+  - component: {fileID: 2285776994237489517}
   m_Layer: 0
-  m_Name: Turret
+  m_Name: TravellingTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,7 +223,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.22339904, y: 0.2781009}
   m_EdgeRadius: 0
---- !u!114 &-6409355453653856867
+--- !u!114 &2285776994237489517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -232,9 +232,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5832334029641678956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7a64cc830405694384a3b402409ab26, type: 3}
+  m_Script: {fileID: 11500000, guid: 15152638df6763f448b31868ace898fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 15
   currenthp: 15
   shootingFrequency: 3
+  checkpoints:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: -5, z: 0}
+  travelSpeed: 2

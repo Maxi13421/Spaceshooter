@@ -7,8 +7,8 @@ public class TurretStandardProjectile : EnemyProjectile
     
     protected override void UpdatePosition()
     {
-        float amtToMove = - projectileSpeed * Time.fixedDeltaTime;
-        transform.Translate(Vector3.right * amtToMove, Space.World);
+        float amtToMove = projectileSpeed * Time.fixedDeltaTime;
+        transform.Translate(amtToMove * Vector3.left, Space.Self);
     }
     
     

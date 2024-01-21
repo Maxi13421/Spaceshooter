@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4505765340485579415}
   - component: {fileID: 5544452764298566971}
   - component: {fileID: 3813102454950747120}
-  - component: {fileID: 3729974578441048011}
+  - component: {fileID: -4027636881827942960}
   m_Layer: 0
-  m_Name: TurretDirectionalProjectile
+  m_Name: TurretShrapnelProjectileChild
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,7 +121,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.04291168, y: 0.032494992}
   m_Direction: 1
---- !u!114 &3729974578441048011
+--- !u!114 &-4027636881827942960
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

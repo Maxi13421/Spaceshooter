@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-public class StandardProjectile : Projectile
+public class StandardProjectile : PlayerProjectile
 {
     
     
@@ -24,15 +24,5 @@ public class StandardProjectile : Projectile
         transform.Translate(Vector3.right * amtToMove, Space.World);
     }
     
-    protected void OnTriggerEnter2D(Collider2D other)
-    {
-        Enemy collideWith = other.GetComponent<Enemy>();
-        if (collideWith != null)
-        {
-            gameObject.SetActive(false);
-            collideWith.currenthp -= damage;
-
-
-        }
-    }
+    
 }

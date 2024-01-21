@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4505765340485579415}
   - component: {fileID: 5544452764298566971}
   - component: {fileID: 3813102454950747120}
-  - component: {fileID: 3729974578441048011}
+  - component: {fileID: -7467040827435805174}
   m_Layer: 0
-  m_Name: TurretDirectionalProjectile
+  m_Name: TurretShrapnelProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,7 +121,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.04291168, y: 0.032494992}
   m_Direction: 1
---- !u!114 &3729974578441048011
+--- !u!114 &-7467040827435805174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,9 +130,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6682780489928433868}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a095b66b6528f684898c90f4c79551ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f208d6a362cc094490473042ac0bda3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 5
   damage: 5
   lifespan: 1
+  childrenAmount: 8
+  childLifeSpan: 0.5
+  childSpeed: 5
+  childDamage: 5
