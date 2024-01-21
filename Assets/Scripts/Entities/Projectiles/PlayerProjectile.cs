@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
-public abstract class EnemyProjectile : Projectile
+public abstract class PlayerProjectile : Projectile
 {
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
@@ -9,7 +10,7 @@ public abstract class EnemyProjectile : Projectile
             gameObject.SetActive(false);
             return;
         }
-        Player collideWith = other.GetComponent<Player>();
+        Enemy collideWith = other.GetComponent<Enemy>();
         if (collideWith != null)
         {
             gameObject.SetActive(false);

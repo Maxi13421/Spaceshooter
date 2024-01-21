@@ -41,7 +41,7 @@ public class Player : Entity
     {
         _cooldownCur = cooldownMax;
         _mainWeapon = new StandardWeapon(new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position-transform.position });
-        _mainWeapon = new Laser();
+        //_mainWeapon = new Laser();
         GameSystem.Player = gameObject;
     }
 

@@ -7,7 +7,7 @@ public abstract class Projectile: Entity
     public float projectileSpeed;
     public float damage;
     public float lifespan;
-    private float _lifeStart;
+    protected float LifeStart;
     
     
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public abstract class Projectile: Entity
 
     private void OnEnable()
     {
-        _lifeStart = Time.time;
+        LifeStart = Time.time;
     }
 
     // Update is called once per frame
@@ -44,11 +44,13 @@ public abstract class Projectile: Entity
 
     protected abstract void UpdatePosition();
 
-    protected void CheckLifespan()
+    protected virtual void CheckLifespan()
     {
-        if (Time.time - _lifeStart >= lifespan)
+        if (Time.time - LifeStart >= lifespan)
         {
             gameObject.SetActive(false);
         }
     }
+
+    
 }

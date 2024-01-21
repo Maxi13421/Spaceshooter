@@ -19,7 +19,7 @@ public class Laser : Weapon
         RaycastHit2D[] hits = Physics2D.BoxCastAll(Player.transform.position, new Vector2(Width/2,Width/2), 0, Vector2.right,
             Camera.main.orthographicSize * Camera.main.aspect - Player.transform.position.x);
 
-        float xEnd = Camera.main.orthographicSize * Camera.main.aspect + 1;
+        float xEnd = GameSystem.MainCamera.orthographicSize * GameSystem.MainCamera.aspect + 1;
         for (int i = 0; i < hits.Length; i++)
         {
             if (hits[i].collider.gameObject.CompareTag("ObstacleTile"))
@@ -27,7 +27,7 @@ public class Laser : Weapon
                 xEnd = hits[i].collider.transform.position.x - 1.28f;
                 break;
             }
-            else if (hits[i].collider.gameObject.GetComponent<Enemy>() != null)
+            if (hits[i].collider.gameObject.GetComponent<Enemy>() != null)
             {
                 hits[i].collider.gameObject.GetComponent<Enemy>().currenthp -= DamagePerSecond * Time.fixedDeltaTime;
                 

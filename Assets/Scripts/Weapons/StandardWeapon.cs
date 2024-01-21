@@ -37,8 +37,9 @@ public class StandardWeapon : Weapon
             _lastShot = Time.time;
             foreach (var weaponPosition in WeaponPositions)
             {
-                GameObject o = Level.StandardProjectilePool.GetPooledObject();
+                GameObject o = Level.HomingProjectilePool.GetPooledObject();
                 o.transform.position = Player.transform.position + weaponPosition;
+                o.transform.right = Vector3.right;
             }
         }
     }
