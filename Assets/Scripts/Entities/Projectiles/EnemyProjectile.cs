@@ -17,5 +17,14 @@ public abstract class EnemyProjectile : Projectile
 
 
         }
+        Shield collideWith2 = other.GetComponent<Shield>();
+        if (collideWith2 != null)
+        {
+            gameObject.SetActive(false);
+            other.transform.parent.GetComponent<Player>().currenthp -= damage * (1- collideWith2.damageReduction);
+
+
+        }
+
     }
 }

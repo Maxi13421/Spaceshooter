@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Player : Entity
 {
@@ -10,13 +11,21 @@ public class Player : Entity
     private float _inputVertical;
     private bool _inputFireMain;
     private bool _inputBoost;
+    private bool _inputShield;
     private Weapon _mainWeapon;
-    public float cooldownUsagePerSecond = 1f;
-    public float cooldownRechargePerSecond = 0.2f;
-    public float cooldownMax = 2;
-    private float _cooldownCur;
+    public float boostCooldownUsagePerSecond = 1f;
+    public float boostCooldownRechargePerSecond = 0.2f;
+    public float boostCooldownMax = 2;
+    private float _boostCooldownCur;
     private bool _useBoost;
     private bool _boostEmpty = false;
+    
+    public float shieldCooldownUsagePerSecond = 1f;
+    public float shieldCooldownRechargePerSecond = 0.2f;
+    public float shieldCooldownMax = 2;
+    private float _shieldCooldownCur;
+    private bool _useShield;
+    private bool _shieldEmpty = false;
     
     
     [SerializeField] private float boundariesHorizontal = 8;
@@ -39,7 +48,7 @@ public class Player : Entity
 
     private void Awake()
     {
-        _cooldownCur = cooldownMax;
+        _boostCooldownCur = boostCooldownMax;
         _mainWeapon = new StandardWeapon(new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position-transform.position });
         //_mainWeapon = new Laser();
         GameSystem.Player = gameObject;
@@ -54,8 +63,11 @@ public class Player : Entity
     private void FixedUpdate()
     {
         UpdateBoostCooldown();
+        UpdateShieldCooldown();
         Move();
         FireMain();
+        Shield();
+
     }
 
     private void GetInput()
@@ -64,6 +76,7 @@ public class Player : Entity
         _inputVertical = Input.GetAxis("Vertical");
         _inputFireMain = Input.GetButton("FireMain");
         _inputBoost = Input.GetButton("Boost");
+        _inputShield = Input.GetButton("Shield");
     }
 
     private void Move()
@@ -111,6 +124,11 @@ public class Player : Entity
         }
     }
 
+    private void Shield()
+    {
+        transform.GetComponentInChildren<Shield>().gameObject.SetActive(_useShield);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
@@ -123,17 +141,17 @@ public class Player : Entity
 
     private void UpdateBoostCooldown()
     {
-        _cooldownCur += cooldownRechargePerSecond * Time.fixedDeltaTime;
-        if (_cooldownCur > cooldownMax)
+        _boostCooldownCur += boostCooldownRechargePerSecond * Time.fixedDeltaTime;
+        if (_boostCooldownCur > boostCooldownMax)
         {
-            _cooldownCur = cooldownMax;
+            _boostCooldownCur = boostCooldownMax;
         }
 
         if (_inputBoost)
         {
-            if (_cooldownCur >= cooldownUsagePerSecond * Time.fixedDeltaTime && !_boostEmpty)
+            if (_boostCooldownCur >= boostCooldownUsagePerSecond * Time.fixedDeltaTime && !_boostEmpty)
             {
-                _cooldownCur -= cooldownUsagePerSecond * Time.fixedDeltaTime;
+                _boostCooldownCur -= boostCooldownUsagePerSecond * Time.fixedDeltaTime;
                 _useBoost = true;
 
             }
@@ -148,6 +166,36 @@ public class Player : Entity
         {
             _useBoost = false;
             _boostEmpty = false;
+        }
+    }
+    
+    private void UpdateShieldCooldown()
+    {
+        _shieldCooldownCur += shieldCooldownRechargePerSecond * Time.fixedDeltaTime;
+        if (_shieldCooldownCur > shieldCooldownMax)
+        {
+            _shieldCooldownCur = shieldCooldownMax;
+        }
+
+        if (_inputShield)
+        {
+            if (_shieldCooldownCur >= shieldCooldownUsagePerSecond * Time.fixedDeltaTime && !_shieldEmpty)
+            {
+                _shieldCooldownCur -= shieldCooldownUsagePerSecond * Time.fixedDeltaTime;
+                _useShield = true;
+
+            }
+            else
+            {
+                _shieldEmpty = true;
+                _useShield = false;
+            }
+            
+        }
+        else
+        {
+            _useShield = false;
+            _shieldEmpty = false;
         }
     }
 }
