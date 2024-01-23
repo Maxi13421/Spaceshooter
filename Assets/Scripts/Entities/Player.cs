@@ -126,7 +126,7 @@ public class Player : Entity
 
     private void Shield()
     {
-        transform.GetComponentInChildren<Shield>().gameObject.SetActive(_useShield);
+        transform.GetComponentInChildren<Shield>(true).gameObject.SetActive(_useShield);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
