@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,5 +27,13 @@ public class TravellingTurret : Turret
             CurCheckpoint = (CurCheckpoint + 1) % checkpoints.Length;
         }
         transform.Translate(travelSpeed*Time.fixedDeltaTime*(checkpoints[CurCheckpoint]-checkpoints[(CurCheckpoint-1+checkpoints.Length)%checkpoints.Length]).normalized,Space.World);
+    }
+
+    private void OnDrawGizmos()
+    {
+        for (int aaa = 0; aaa < checkpoints.Length; aaa++)
+        {
+            Gizmos.DrawLine(checkpoints[aaa]+transform.position,checkpoints[(aaa+1)%checkpoints.Length]+transform.position);
+        }
     }
 }

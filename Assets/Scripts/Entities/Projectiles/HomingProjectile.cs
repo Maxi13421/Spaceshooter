@@ -21,6 +21,7 @@ public class HomingProjectile : PlayerProjectile
     {
         
     }
+    
 
     protected override void UpdatePosition()
     {

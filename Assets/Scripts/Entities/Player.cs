@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -28,9 +29,6 @@ public class Player : Entity
     private bool _shieldEmpty = false;
     
     
-    [SerializeField] private float boundariesHorizontal = 8;
-    [SerializeField] private float boundariesVertical = 3;
-    
     public int money;
     public float currenthp;
     public float hp;
@@ -49,7 +47,7 @@ public class Player : Entity
     private void Awake()
     {
         _boostCooldownCur = boostCooldownMax;
-        _mainWeapon = new StandardWeapon(new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position-transform.position });
+        _mainWeapon = Instantiate(Resources.Load("Player/StandardWeapon", typeof(GameObject)),transform).GetComponent<Weapon>();
         //_mainWeapon = new Laser();
         GameSystem.Player = gameObject;
     }
@@ -60,23 +58,29 @@ public class Player : Entity
         GetInput();
     }
 
-    private void FixedUpdate()
+    override protected void FixedUpdate()
     {
-        UpdateBoostCooldown();
-        UpdateShieldCooldown();
-        Move();
-        FireMain();
-        Shield();
+        base.FixedUpdate();
+        if (GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().ZoomStatus == GameSystem.Zoom.Level)
+        {
+            UpdateBoostCooldown();
+            UpdateShieldCooldown();
+            Move();
+            FireMain();
+            Shield();
+        }
+        
 
     }
 
     private void GetInput()
     {
-        _inputHorizontal = Input.GetAxis("Horizontal");
-        _inputVertical = Input.GetAxis("Vertical");
-        _inputFireMain = Input.GetButton("FireMain");
-        _inputBoost = Input.GetButton("Boost");
-        _inputShield = Input.GetButton("Shield");
+        InputSystem inputSystem = GameObject.FindWithTag("InputSystem").GetComponent<InputSystem>();
+        _inputHorizontal = inputSystem.moveAction.ReadValue<Vector2>().x;
+        _inputVertical = inputSystem.moveAction.ReadValue<Vector2>().y;
+        _inputFireMain = inputSystem.fireAction.ReadValue<float>()>=0.5;
+        _inputBoost = inputSystem.boostAction.ReadValue<float>()>=0.5;
+        _inputShield = inputSystem.shieldAction.ReadValue<float>()>=0.5;
     }
 
     private void Move()
@@ -94,21 +98,21 @@ public class Player : Entity
         
         
         
-        if (transform.position.x > boundariesHorizontal)
+        if (transform.position.x > GameSystem.MainCamera.orthographicSize*GameSystem.MainCamera.aspect*0.8f)
         {
-            transform.position = new Vector3(boundariesHorizontal, transform.position.y, transform.position.z);
+            transform.position = new Vector3(GameSystem.MainCamera.orthographicSize*GameSystem.MainCamera.aspect*0.8f, transform.position.y, transform.position.z);
         }
-        if (transform.position.x < -boundariesHorizontal)
+        if (transform.position.x < -GameSystem.MainCamera.orthographicSize*GameSystem.MainCamera.aspect*0.8f)
         {
-            transform.position = new Vector3(-boundariesHorizontal, transform.position.y, transform.position.z);
+            transform.position = new Vector3(-GameSystem.MainCamera.orthographicSize*GameSystem.MainCamera.aspect*0.8f, transform.position.y, transform.position.z);
         }
-        if (transform.position.y > boundariesVertical)
+        if (transform.position.y > GameSystem.MainCamera.orthographicSize*0.8f)
         {
-            transform.position = new Vector3(transform.position.x, boundariesVertical, transform.position.z);
+            transform.position = new Vector3(transform.position.x, GameSystem.MainCamera.orthographicSize*0.8f, transform.position.z);
         }
-        if (transform.position.y < -boundariesVertical)
+        if (transform.position.y < -GameSystem.MainCamera.orthographicSize*0.8f)
         {
-            transform.position = new Vector3(transform.position.x, -boundariesVertical, transform.position.z);
+            transform.position = new Vector3(transform.position.x, -GameSystem.MainCamera.orthographicSize*0.8f, transform.position.z);
         }
     }
 
@@ -135,7 +139,6 @@ public class Player : Entity
         {
             other.gameObject.SetActive(false);
             money++;
-            Debug.Log(money.ToString());
         }
     }
 

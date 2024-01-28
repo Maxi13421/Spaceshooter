@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,8 +118,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.04291168, y: 0.032494992}
+  m_Offset: {x: 0.00011401623, y: -0.00017116967}
+  m_Size: {x: 0.11410141, y: 0.0823732}
   m_Direction: 1
 --- !u!114 &4253426402151782115
 MonoBehaviour:
@@ -133,8 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138f6e73c5428e3439a9ba42ee203027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 5
+  visible: 0
+  projectileSpeed: 10
   damage: 5
   lifespan: 5
-  ThresholdAngle: 90
-  TurningAnglePerSecond: 50
+  ThresholdAngle: 120
+  TurningAnglePerSecond: 120

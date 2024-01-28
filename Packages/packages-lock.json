@@ -87,6 +87,15 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.inputsystem": {
+      "version": "1.7.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.performance.profile-analyzer": {
       "version": "1.2.2",
       "depth": 1,
@@ -161,6 +170,13 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "com.zchfvy.gizmosplus": {
+      "version": "https://github.com/zchfvy/GizmosPlus.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "84ed63e0f589f24962be08d9acda253a95ef2a58"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

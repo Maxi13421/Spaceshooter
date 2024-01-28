@@ -2,13 +2,13 @@
 using UnityEngine;
 
 
-public abstract class Weapon
+public abstract class Weapon : MonoBehaviour
 {
     protected Player Player;
     
     public Weapon()
     {
-        Player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        Player = transform.parent.GetComponent<Player>();
     }
     public Weapon(Vector3[] weaponPositions)
     {

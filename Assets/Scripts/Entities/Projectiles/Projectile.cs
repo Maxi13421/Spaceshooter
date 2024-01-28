@@ -7,7 +7,7 @@ public abstract class Projectile: Entity
     public float projectileSpeed;
     public float damage;
     public float lifespan;
-    protected float LifeStart;
+    public float LifeStart;
     
     
     // Start is called before the first frame update
@@ -29,8 +29,9 @@ public abstract class Projectile: Entity
         
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         UpdatePosition();
         CheckLifespan();
     }
@@ -50,6 +51,14 @@ public abstract class Projectile: Entity
         {
             gameObject.SetActive(false);
         }
+    }
+    
+    public enum ProjectileType
+    {
+        Standard,
+        Homing,
+        Shrapnel,
+        Big
     }
 
     
