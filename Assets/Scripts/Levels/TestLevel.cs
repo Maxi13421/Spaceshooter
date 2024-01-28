@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 public class TestLevel : Level
 {
-    public float speed = 2;
+    
     
     void Start()
     {
@@ -15,9 +15,9 @@ public class TestLevel : Level
     
 
     private float _lastSpawn = float.MinValue;
-    void FixedUpdate()
+    override protected void FixedUpdate()
     {
-        transform.Translate(Time.fixedDeltaTime * speed * Vector3.left, Space.World);
+        base.FixedUpdate();
         float currentSpawnXCoordinate = 9f + 5f;
         if (Time.time-_lastSpawn>4f)
         {
@@ -42,5 +42,10 @@ public class TestLevel : Level
 
             _obstacle = !_obstacle;
         }
+    }
+
+    protected override int GetNextTileType()
+    {
+        return 0;
     }
 }

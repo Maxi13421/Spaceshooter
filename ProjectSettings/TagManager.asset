@@ -8,6 +8,10 @@ TagManager:
   - Coin
   - ObstacleTile
   - Shield
+  - LevelEnd
+  - Level
+  - InputSystem
+  - GameSystem
   layers:
   - Default
   - TransparentFX

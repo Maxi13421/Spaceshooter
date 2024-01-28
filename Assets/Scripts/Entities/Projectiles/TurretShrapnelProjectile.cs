@@ -42,6 +42,7 @@ public class TurretShrapnelProjectile : EnemyProjectile
                 o.GetComponent<TurretStandardProjectile>().damage = childDamage;
                 o.GetComponent<TurretStandardProjectile>().projectileSpeed = childSpeed;
                 o.GetComponent<TurretStandardProjectile>().lifespan = childLifeSpan;
+                o.transform.parent = transform.parent;
             }
         }
     }

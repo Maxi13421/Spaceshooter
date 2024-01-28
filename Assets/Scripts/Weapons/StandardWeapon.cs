@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
     
@@ -13,21 +14,21 @@ public class StandardWeapon : Weapon
     private float _cooldownCur;
     private float _cooldownMicro = 0.1f; //Sonst würde in einem Frame der ganze Cooldown verschossen werden.
     private float _lastShot = float.MinValue;
-    
-    
-    
-    
-    public StandardWeapon(Vector3[] weaponPositions)
+
+
+    private void Awake()
     {
-        this.WeaponPositions = weaponPositions;
         _cooldownCur = _cooldownMax;
-        
+        WeaponPositions = new[]
+            { transform.parent.GetChild(0).position-transform.parent.position, transform.parent.GetChild(1).position-transform.parent.position };
     }
+    
     
     public override void Shoot()
     {
         if (Time.time - _lastShot + _cooldownCur >= _cooldown && Time.time - _lastShot > _cooldownMicro)
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.shot, transform.position);
             _cooldownCur += (Time.time - _lastShot);
             if (_cooldownCur > _cooldownMax)
             {
@@ -38,7 +39,7 @@ public class StandardWeapon : Weapon
             foreach (var weaponPosition in WeaponPositions)
             {
                 GameObject o = Level.HomingProjectilePool.GetPooledObject();
-                o.transform.position = Player.transform.position + weaponPosition;
+                o.transform.position = transform.parent.position + weaponPosition;
                 o.transform.right = Vector3.right;
             }
         }

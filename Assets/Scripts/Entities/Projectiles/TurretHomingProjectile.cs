@@ -12,13 +12,16 @@ public class TurretHomingProjectile : EnemyProjectile
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(transform.right.ToString());
+    }
+
+    void OnEnable()
+    {
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(transform.right.ToString());
+        //Debug.Log(transform.right.ToString());
     }
 
     protected override void UpdatePosition()
@@ -28,19 +31,19 @@ public class TurretHomingProjectile : EnemyProjectile
 
 
         if ((Math.Abs(transform.rotation.eulerAngles.z -
-                      Vector3.Angle(GameSystem.Player.transform.position - transform.position, Vector3.right)) <=
+                      Vector3.Angle(GameSystem.Player.transform.position - transform.position, Vector3.left)) <=
              ThresholdAngle
              || Math.Abs(360 - transform.rotation.eulerAngles.z +
-                         Vector3.Angle(GameSystem.Player.transform.position - transform.position, Vector3.right)) <=
+                         Vector3.Angle(GameSystem.Player.transform.position - transform.position, Vector3.left)) <=
              ThresholdAngle))
         {
 
-            transform.right = Vector3.RotateTowards(transform.right, GameSystem.Player.transform.position - transform.position,
+            transform.right = -Vector3.RotateTowards(-transform.right, GameSystem.Player.transform.position - transform.position,
                 (float)(TurningAnglePerSecond * Time.fixedDeltaTime/180*Math.PI), 0);
             
         }
         float amtToMove = projectileSpeed * Time.fixedDeltaTime;
-        transform.Translate(Vector3.right * amtToMove, Space.Self);
+        transform.Translate(Vector3.left * amtToMove, Space.Self);
         
     }
 }

@@ -6,14 +6,15 @@ using UnityEngine;
 public class GameSystemEndless : GameSystem
 {
     private GameObject _level;
+    private AudioSource _audioSource;
 
     public int levelCount = 1;
     
 
     protected void Awake()
     {
-        _level = (GameObject)Resources.Load("Levels/TestLevel", typeof(GameObject));
-        GameObject level = Instantiate(_level);
+        
+        
     }
 
     protected override void Update()
