@@ -7,13 +7,11 @@ public class LevelPiece : MonoBehaviour
 {
     public bool[] connectionLeft = new bool[5];
     public bool[] connectionRight = new bool[5];
-    public Obstacle.ColorScheme ColorScheme;
 
     public bool startTogether;
     protected bool Visible;
     protected void Awake()
     {
-        ColorScheme = transform.parent.GetComponent<Level>().ColorScheme;
     }
 
     // Start is called before the first frame update

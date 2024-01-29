@@ -9,10 +9,11 @@ public class ObstacleGenerator
     private const int TileHeight = 16;
 
     private static Sprite[] _spritesStandard = Resources.LoadAll<Sprite>("tileset");
-    private static Sprite[] _spritesFireIce = Resources.LoadAll<Sprite>("tileset");
+    private static Sprite[] _spritesFireIce = Resources.LoadAll<Sprite>("tilesetFireIce");
+    private static Sprite[] _spritesNature = Resources.LoadAll<Sprite>("tilesetNature");
     
     
-    public static GameObject GetObstacle(int width, int height, GameObject obstacle = null, Obstacle.ColorScheme colorScheme = Obstacle.ColorScheme.Standard,
+    public static GameObject GetObstacle(int width, int height, GameObject obstacle = null,
       bool dontRoundTop = false,
     bool dontRoundBottom = false,
     bool dontRoundLeft = false,
@@ -49,10 +50,16 @@ public class ObstacleGenerator
                 }
 
                 Sprite sprite = null;
-                switch (colorScheme)
+                switch (GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().colorScheme)
                 {
-                    case Obstacle.ColorScheme.Standard:
+                    case GameSystem.ColorScheme.Asteroid:
                         sprite = _spritesStandard[spriteNumber];
+                        break;
+                    case GameSystem.ColorScheme.FireIce:
+                        sprite = _spritesFireIce[spriteNumber];
+                        break;
+                    case GameSystem.ColorScheme.Nature:
+                        sprite = _spritesNature[spriteNumber];
                         break;
                 }
                 tile.GetComponent<SpriteRenderer>().sprite = sprite;
@@ -67,7 +74,7 @@ public class ObstacleGenerator
         return obstacle;
     }
     
-    public static GameObject GetSuperObstacle(bool[][] tiles, GameObject obstacle = null, Obstacle.ColorScheme colorScheme = Obstacle.ColorScheme.Standard,
+    public static GameObject GetSuperObstacle(bool[][] tiles, GameObject obstacle = null,
       bool dontRoundTop = false,
     bool dontRoundBottom = false,
     bool dontRoundLeft = false,
@@ -108,10 +115,16 @@ public class ObstacleGenerator
                 }
 
                 Sprite sprite = null;
-                switch (colorScheme)
+                switch (GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().colorScheme)
                 {
-                    case Obstacle.ColorScheme.Standard:
+                    case GameSystem.ColorScheme.Asteroid:
                         sprite = _spritesStandard[spriteNumber];
+                        break;
+                    case GameSystem.ColorScheme.FireIce:
+                        sprite = _spritesFireIce[spriteNumber];
+                        break;
+                    case GameSystem.ColorScheme.Nature:
+                        sprite = _spritesNature[spriteNumber];
                         break;
                 }
                 tile.GetComponent<SpriteRenderer>().sprite = sprite;

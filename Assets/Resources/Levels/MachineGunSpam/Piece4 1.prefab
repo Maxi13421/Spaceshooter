@@ -455,7 +455,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connectionLeft: 0100000000
   connectionRight: 0101010101
-  ColorScheme: 0
   startTogether: 0
 --- !u!1 &2515476388584940923
 GameObject:
@@ -1314,6 +1313,10 @@ PrefabInstance:
       propertyPath: shootingFrequency
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: -1603071670486604553, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
+      propertyPath: shootingFrequency
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2510156289464142604, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1385,6 +1388,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6409355453653856867, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
+      propertyPath: shootingFrequency
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1603071670486604553, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
       propertyPath: shootingFrequency
       value: 0.2
       objectReference: {fileID: 0}
@@ -1462,6 +1469,10 @@ PrefabInstance:
       propertyPath: shootingFrequency
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: -1603071670486604553, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
+      propertyPath: shootingFrequency
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2510156289464142604, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1533,6 +1544,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6409355453653856867, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
+      propertyPath: shootingFrequency
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1603071670486604553, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
       propertyPath: shootingFrequency
       value: 0.2
       objectReference: {fileID: 0}

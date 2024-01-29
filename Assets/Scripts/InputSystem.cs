@@ -11,6 +11,7 @@ public class InputSystem : MonoBehaviour
     [FormerlySerializedAs("shoot")] public InputAction fireAction;
     [FormerlySerializedAs("shield")] public InputAction shieldAction;
     [FormerlySerializedAs("boost")] public InputAction boostAction;
+    public InputAction PauseResumeAction;
     
     
     
@@ -32,6 +33,7 @@ public class InputSystem : MonoBehaviour
         fireAction.Enable();
         shieldAction.Enable();
         boostAction.Enable();
+        PauseResumeAction.Enable();
     }
 
     private void OnDisable()
@@ -40,5 +42,6 @@ public class InputSystem : MonoBehaviour
         fireAction.Disable();
         shieldAction.Disable();
         boostAction.Disable();
+        PauseResumeAction.Disable();
     }
 }

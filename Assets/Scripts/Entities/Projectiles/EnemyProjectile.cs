@@ -7,6 +7,7 @@ public abstract class EnemyProjectile : Projectile
         if (other.CompareTag("ObstacleTile"))
         {
             gameObject.SetActive(false);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.explosionSmall,transform.position);
             return;
         }
         Shield collideWith2 = other.GetComponent<Shield>();
@@ -24,6 +25,7 @@ public abstract class EnemyProjectile : Projectile
         {
             gameObject.SetActive(false);
             collideWith.currenthp -= damage;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.explosionSmall,transform.position);
 
 
         }

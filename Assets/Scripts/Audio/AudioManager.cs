@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FMOD.Studio;
 using UnityEngine;
 using FMODUnity;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager : MonoBehaviour
 {
@@ -40,6 +41,11 @@ public class AudioManager : MonoBehaviour
     {
         musicEventInstance = CreateInstance(musicEventReference);
         musicEventInstance.start();
+    }
+    
+    public void StopMusic()
+    {
+        musicEventInstance.stop(STOP_MODE.IMMEDIATE);
     }
 
 

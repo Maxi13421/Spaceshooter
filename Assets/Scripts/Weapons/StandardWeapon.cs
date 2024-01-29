@@ -9,16 +9,13 @@ public class StandardWeapon : Weapon
     
     
     
-    private float _cooldown = 0.2f;
-    private float _cooldownMax = 2;
-    private float _cooldownCur;
     private float _cooldownMicro = 0.1f; //Sonst würde in einem Frame der ganze Cooldown verschossen werden.
     private float _lastShot = float.MinValue;
 
 
     private void Awake()
     {
-        _cooldownCur = _cooldownMax;
+        consumption = 0.5f;
         WeaponPositions = new[]
             { transform.parent.GetChild(0).position-transform.parent.position, transform.parent.GetChild(1).position-transform.parent.position };
     }
@@ -26,15 +23,9 @@ public class StandardWeapon : Weapon
     
     public override void Shoot()
     {
-        if (Time.time - _lastShot + _cooldownCur >= _cooldown && Time.time - _lastShot > _cooldownMicro)
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.fireSmall,transform.position);
+        if (Time.time - _lastShot > _cooldownMicro)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.shot, transform.position);
-            _cooldownCur += (Time.time - _lastShot);
-            if (_cooldownCur > _cooldownMax)
-            {
-                _cooldownCur = _cooldownMax;
-            }
-            _cooldownCur -= _cooldown;
             _lastShot = Time.time;
             foreach (var weaponPosition in WeaponPositions)
             {

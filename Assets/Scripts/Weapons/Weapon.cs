@@ -4,11 +4,10 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    protected Player Player;
+    public float consumption;
     
     public Weapon()
     {
-        Player = transform.parent.GetComponent<Player>();
     }
     public Weapon(Vector3[] weaponPositions)
     {

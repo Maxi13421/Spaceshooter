@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectPool
@@ -23,7 +24,7 @@ public class ObjectPool
           
           foreach (GameObject gameObject in _objectPool)
           {
-               if (!gameObject.activeSelf)
+               if (!gameObject.activeSelf && !gameObject.IsDestroyed())
                {
                     gameObject.SetActive(true);
                     return gameObject;

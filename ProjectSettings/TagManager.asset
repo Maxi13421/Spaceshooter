@@ -12,6 +12,18 @@ TagManager:
   - Level
   - InputSystem
   - GameSystem
+  - LifeBox
+  - ShieldBox
+  - BoostBox
+  - CoinCounter
+  - LevelCounter
+  - Overlay
+  - Darkener
+  - AmmoBox
+  - InputSystemMenu
+  - Shop
+  - DarkenerExcludeMenu
+  - Coin10
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,12 @@ public abstract class Entity : MonoBehaviour
             visible = true;
         }
 
+        if (transform.position.x < -Camera.main.orthographicSize * Camera.main.aspect - 10 && !(this is Player))
+        {
+            //Debug.Log(transform.position.x.ToString());
+            //Destroy(gameObject);
+        }
+
     }
 
     

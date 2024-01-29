@@ -8,7 +8,6 @@ public abstract class Level : MonoBehaviour
 {
     
     public float speed = 2;
-    public Obstacle.ColorScheme ColorScheme;
     private float space = 10;
     public float levelEnd = 10000;
 
@@ -25,11 +24,23 @@ public abstract class Level : MonoBehaviour
     public static ObjectPool CoinPool;
     public static GameObject Coin;
     
+    public static ObjectPool Coin10Pool;
+    public static GameObject Coin10;
+    
     public static GameObject StandardProjectile;
     public static ObjectPool StandardProjectilePool;
     
     public static GameObject HomingProjectile;
     public static ObjectPool HomingProjectilePool;
+    
+    public static GameObject ShrapnelProjectile;
+    public static ObjectPool ShrapnelProjectilePool;
+    
+    public static GameObject ShrapnelProjectileChild;
+    public static ObjectPool ShrapnelProjectileChildPool;
+    
+    public static GameObject BigProjectile;
+    public static ObjectPool BigProjectilePool;
     
     public static GameObject StandardTurret;
     public static ObjectPool StandardTurretPool;
@@ -76,13 +87,32 @@ public abstract class Level : MonoBehaviour
         {
             Coin = (GameObject)Resources.Load("Coin/Coin", typeof(GameObject));
             CoinPool = new ObjectPool(Coin, 0);
+            
+            Coin10 = (GameObject)Resources.Load("Coin/Coin10", typeof(GameObject));
+            Coin10Pool = new ObjectPool(Coin10, 0);
 
             StandardProjectile = (GameObject)Resources.Load("Projectile/StandardProjectile", typeof(GameObject));
             StandardProjectilePool = new ObjectPool(StandardProjectile, 0);
 
             HomingProjectile = (GameObject)Resources.Load("Projectile/HomingProjectile", typeof(GameObject));
             HomingProjectilePool = new ObjectPool(HomingProjectile, 0);
+            
+            ShrapnelProjectile =
+                (GameObject)Resources.Load("Projectile/ShrapnelProjectile", typeof(GameObject));
+            ShrapnelProjectilePool = new ObjectPool(ShrapnelProjectile, 0);
 
+            ShrapnelProjectileChild =
+                (GameObject)Resources.Load("Projectile/ShrapnelProjectileChild", typeof(GameObject));
+            ShrapnelProjectileChildPool = new ObjectPool(ShrapnelProjectileChild, 0);
+            
+            BigProjectile =
+                (GameObject)Resources.Load("Projectile/BigProjectile", typeof(GameObject));
+            BigProjectilePool = new ObjectPool(BigProjectile, 0);
+
+            StandardProjectile =
+                (GameObject)Resources.Load("Projectile/TurretStandardProjectile", typeof(GameObject));
+            StandardProjectilePool = new ObjectPool(StandardProjectile, 0);
+            
             TurretStandardProjectile =
                 (GameObject)Resources.Load("Projectile/TurretStandardProjectile", typeof(GameObject));
             TurretStandardProjectilePool = new ObjectPool(TurretStandardProjectile, 0);

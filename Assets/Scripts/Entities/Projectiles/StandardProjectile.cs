@@ -9,8 +9,6 @@ public class StandardProjectile : PlayerProjectile
     
     void Start()
     {
-        projectileSpeed = 5;
-        damage = 6;
     }
 
     
@@ -21,7 +19,7 @@ public class StandardProjectile : PlayerProjectile
     protected override void UpdatePosition()
     {
         float amtToMove = projectileSpeed * Time.fixedDeltaTime;
-        transform.Translate(Vector3.right * amtToMove, Space.World);
+        transform.Translate(Vector3.right * amtToMove, Space.Self);
     }
     
     

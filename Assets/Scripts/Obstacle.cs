@@ -22,7 +22,7 @@ public class Obstacle : Entity
         if (transform.childCount == GetComponentsInChildren<Entity>().Length-1)
         {
             _super = false;
-            ObstacleGenerator.GetObstacle(xLength, yLength, gameObject, transform.parent.GetComponent<LevelPiece>().ColorScheme, dontRoundTop,dontRoundBottom,dontRoundLeft,dontRoundRight);
+            ObstacleGenerator.GetObstacle(xLength, yLength, gameObject, dontRoundTop,dontRoundBottom,dontRoundLeft,dontRoundRight);
         }
         else
         {
@@ -58,8 +58,7 @@ public class Obstacle : Entity
                 Array.Copy(tiles[aaa], 0, trimmedTiles[aaa], 0, height);
             }
 
-            ObstacleGenerator.GetSuperObstacle(trimmedTiles, gameObject,
-                transform.parent.GetComponent<LevelPiece>().ColorScheme, dontRoundTop, dontRoundBottom, dontRoundLeft,
+            ObstacleGenerator.GetSuperObstacle(trimmedTiles, gameObject, dontRoundTop, dontRoundBottom, dontRoundLeft,
                 dontRoundRight);
         }
     }
@@ -95,9 +94,4 @@ public class Obstacle : Entity
     }
     
     
-    public enum ColorScheme
-    {
-        Standard,
-        LavaIce
-    }
 }

@@ -53,7 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connectionLeft: 0101010101
   connectionRight: 0101010101
-  ColorScheme: 0
   startTogether: 0
 --- !u!1001 &218692694411614561
 PrefabInstance:
@@ -138,6 +137,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6409355453653856867, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
+      propertyPath: shootingFrequency
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1603071670486604553, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
       propertyPath: shootingFrequency
       value: 0.2
       objectReference: {fileID: 0}
@@ -503,6 +506,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6409355453653856867, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
+      propertyPath: shootingFrequency
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1603071670486604553, guid: 3109ee36f2e30ed4aa0c425ec83b9ef1, type: 3}
       propertyPath: shootingFrequency
       value: 0.2
       objectReference: {fileID: 0}
