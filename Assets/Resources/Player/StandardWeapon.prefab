@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c78d3897f1f14aaf97e9d86b076ff39c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumption: 0
+  consumption: 0.1
   WeaponPositions: []

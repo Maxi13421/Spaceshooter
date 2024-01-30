@@ -135,10 +135,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visible: 0
   projectileSpeed: 7
-  damage: 10
-  lifespan: 1
+  damage: 20
+  lifespan: 0.7
   LifeStart: 0
-  childrenAmount: 8
-  childLifeSpan: 0.5
+  childrenAmount: 16
+  childLifeSpan: 1.5
   childSpeed: 5
-  childDamage: 10
+  childDamage: 15

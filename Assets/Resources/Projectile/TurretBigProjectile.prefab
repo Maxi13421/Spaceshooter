@@ -135,6 +135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visible: 0
   projectileSpeed: 6
-  damage: 20
+  damage: 30
   lifespan: 1
   LifeStart: 0

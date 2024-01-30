@@ -17,6 +17,7 @@ public class Player : Entity
     public Weapon _mainWeapon;
     public float boostCooldownUsagePerSecond = 1f;
     public float boostCooldownRechargePerSecond = 0.2f;
+    public float basicBoostCooldownRechargePerSecond = 0.2f;
     public float boostCooldownMax = 2;
     private float _boostCooldownCur;
     private bool _useBoost;
@@ -24,12 +25,14 @@ public class Player : Entity
     
     public float shieldCooldownUsagePerSecond = 1f;
     public float shieldCooldownRechargePerSecond = 0.2f;
+    public float basicShieldCooldownRechargePerSecond = 0.2f;
     public float shieldCooldownMax = 2;
     private float _shieldCooldownCur;
     private bool _useShield;
     private bool _shieldEmpty = false;
     
     public float weaponCooldownRechargePerSecond = 0.2f;
+    public float basicWeaponCooldownRechargePerSecond = 0.5f;
     public float weaponCooldownMax = 2;
     private float _weaponCooldownCur;
     
@@ -37,6 +40,7 @@ public class Player : Entity
     public int money;
     public float currenthp;
     public float hp;
+    public float basicHp;
     public float playerSpeed = 0.5f;
     public float playerSpeedWithBoost = 5;
 
@@ -106,6 +110,8 @@ public class Player : Entity
 
     }
 
+    private bool _pauseResumedPressed = false;
+    private bool paused = false;
     private void GetInput()
     {
         InputSystem inputSystem = GameObject.FindWithTag("InputSystem").GetComponent<InputSystem>();
@@ -114,6 +120,31 @@ public class Player : Entity
         _inputFireMain = inputSystem.fireAction.ReadValue<float>()>=0.5;
         _inputBoost = inputSystem.boostAction.ReadValue<float>()>=0.5;
         _inputShield = inputSystem.shieldAction.ReadValue<float>()>=0.5;
+        if (!_pauseResumedPressed && inputSystem.PauseResumeAction.ReadValue<float>() >= 0.5)
+        {
+            _pauseResumedPressed = true;
+            if (paused)
+            {
+                Time.timeScale = 1;
+                GameObject.FindWithTag("Darkener").GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+                AudioManager.instance.MusicSetPaused(false);
+                paused = false;
+            }
+            else
+            {
+                Time.timeScale = 0;
+                GameObject.FindWithTag("Darkener").GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.5f);
+                AudioManager.instance.MusicSetPaused(true);
+                paused = true;
+            }
+        }
+
+        if (inputSystem.PauseResumeAction.ReadValue<float>() < 0.5)
+        {
+            _pauseResumedPressed = false;
+        }
+        
+        
     }
 
     private void Move()
@@ -171,16 +202,24 @@ public class Player : Entity
     {
         if (other.CompareTag("Coin"))
         {
-            other.gameObject.SetActive(false);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.coin, transform.position);
-            money++;
+            if (GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().ZoomStatus == GameSystem.Zoom.Level)
+            {
+                
+                other.gameObject.SetActive(false);
+                AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.coin, transform.position);
+                money++;
+            }
         }
         
         if (other.CompareTag("Coin10"))
         {
-            other.gameObject.SetActive(false);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.coin, transform.position);
-            money+=10;
+            if (GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().ZoomStatus == GameSystem.Zoom.Level)
+            {
+                
+                other.gameObject.SetActive(false);
+                AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.coin, transform.position);
+                money+=10;
+            }
         }
 
         if (other.CompareTag("ObstacleTile"))
@@ -275,5 +314,13 @@ public class Player : Entity
         GameObject.FindWithTag("AmmoBox").transform.localScale = new Vector3(344 * _weaponCooldownCur/weaponCooldownMax, 16, 1);
         GameObject.FindWithTag("AmmoBox").transform.localPosition = new Vector3(-8.5f-(1-_weaponCooldownCur/weaponCooldownMax)*172f/32, 4.477f, 0);
         GameObject.FindWithTag("CoinCounter").GetComponent<TextMeshPro>().text = money.ToString();
+    }
+
+    public void StartLevel()
+    {
+        currenthp = hp;
+        _boostCooldownCur = boostCooldownMax;
+        _shieldCooldownCur = shieldCooldownMax;
+        _weaponCooldownCur = weaponCooldownMax;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using FMOD.Studio;
 using TMPro;
 using UnityEngine;
 
@@ -13,15 +14,17 @@ public class GameSystem : MonoBehaviour
     protected const float ZoomOutDuration = 1f;
     protected float CameraSizeZoomedIn = 3;
     protected float CameraSizeZoomedOut = 10;
-    public Zoom ZoomStatus = Zoom.Level;
+    public Zoom ZoomStatus = Zoom.Menu;
+    public Target target = Target.Shop;
     protected GameObject Level = null;
-    protected int LevelCount = 1;
-    protected const int BossLevel = 20;
+    public int LevelCount = 1;
+    protected const int BossLevel = -1;
     private float dampness = 0;
     public ColorScheme colorScheme = ColorScheme.Asteroid;
     public float dyingFadeOutDuration = 1;
     public float deadDuration = 1;
     private float _curDeadTime = 0;
+    public int moneyLevelStart;
     
     protected virtual void Start()
     {
@@ -30,6 +33,12 @@ public class GameSystem : MonoBehaviour
         MainCameraGameObject = GameObject.FindWithTag("MainCamera");
         MainCamera = MainCameraGameObject.GetComponent<Camera>();
         GameObject.FindWithTag("Shop").SetActive(false);
+        MainCamera.orthographicSize = CameraSizeZoomedIn;
+        MainCameraGameObject.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, -10);
+        Debug.Log(Player.transform.position);
+        Debug.Log(MainCameraGameObject.transform.position.ToString());
+        GameObject.FindWithTag("Shield").SetActive(false);
+        GameObject.FindWithTag("Overlay").transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void Awake()
@@ -59,6 +68,7 @@ public class GameSystem : MonoBehaviour
 
     protected void FixedUpdate()
     {
+        Debug.Log(ZoomStatus.ToString());
         switch (ZoomStatus)
         {
             case Zoom.Level:
@@ -74,32 +84,32 @@ public class GameSystem : MonoBehaviour
                         Level = new GameObject();
                         Level.tag = "Level";
                         
-                        switch (LevelCount%4)
+                        switch (LevelCount%6)
                         {
                                 
                             case 1:
                                 Level.AddComponent<LevelObstacleSpam>();
-                                Level.GetComponent<LevelObstacleSpam>().speed = 10;
+                                Level.GetComponent<LevelObstacleSpam>().speed = 10+(LevelCount/6);
                                 break;
                             case 2:
                                 Level.AddComponent<LevelBigSpam>();
-                                Level.GetComponent<LevelBigSpam>().speed = 10;
+                                Level.GetComponent<LevelBigSpam>().speed = 10+(LevelCount/6);
                                 break;
                             case 3:
                                 Level.AddComponent<LevelMachineGunSpam>();
-                                Level.GetComponent<LevelMachineGunSpam>().speed = 10;
+                                Level.GetComponent<LevelMachineGunSpam>().speed = 10+(LevelCount/6);
                                 break;
                             case 4:
                                 Level.AddComponent<LevelShrapnelSpam>();
-                                Level.GetComponent<LevelShrapnelSpam>().speed = 10;
+                                Level.GetComponent<LevelShrapnelSpam>().speed = 10+(LevelCount/6);
                                 break;
                             case 5:
                                 Level.AddComponent<LevelHomingSpam>();
-                                Level.GetComponent<LevelHomingSpam>().speed = 10;
+                                Level.GetComponent<LevelHomingSpam>().speed = 10+(LevelCount/6);
                                 break;
                             case 0:
                                 Level.AddComponent<LevelMixedSpam>();
-                                Level.GetComponent<LevelMixedSpam>().speed = 10;
+                                Level.GetComponent<LevelMixedSpam>().speed = 10+(LevelCount/6);
                                 break;
                         }
                         Level.transform.position =
@@ -109,7 +119,17 @@ public class GameSystem : MonoBehaviour
                 if (Level.GetComponent<Level>().levelEnd + Level.transform.position.x <0)
                 {
                     ZoomStatus = Zoom.Zoomin;
-                    GameObject.FindWithTag("Overlay").SetActive(false);
+                    GameObject.FindWithTag("Overlay").transform.GetChild(0).gameObject.SetActive(false);
+                    ResetLevel();
+                    if (LevelCount == BossLevel)
+                    {
+                        target = Target.VictoryScreen;
+                    }
+                    else
+                    {
+                        target = Target.Shop;
+                    }
+                    LevelCount++;
                     //GameObject.FindWithTag("InputSystem").SetActive(false);
                 }
                 
@@ -119,7 +139,7 @@ public class GameSystem : MonoBehaviour
                 {
                     ZoomStatus = Zoom.Dead;
                     ResetLevel();
-                    GameObject.FindWithTag("Overlay").SetActive(false);
+                    GameObject.FindWithTag("Overlay").transform.GetChild(0).gameObject.SetActive(false);
                     _curDeadTime = 0;
                     Camera.main.transform.GetChild(0).gameObject.SetActive(true);
                     break;
@@ -134,8 +154,20 @@ public class GameSystem : MonoBehaviour
                     GameObject.FindWithTag("Darkener").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
                     GameObject.FindWithTag("DarkenerExcludeMenu").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
                     ZoomStatus = Zoom.Shop;
-                    AudioManager.instance.InitializeMusic(FMODEvents.instance.mainTheme);
+                    if (!AudioManager.instance.playingMusic)
+                    {
+                        if (((LevelCount - 1) / 6) % 2 == 0)
+                        {
+                            AudioManager.instance.InitializeMusic(FMODEvents.instance.mainTheme);
+                        }
+                        else
+                        {
+                            AudioManager.instance.InitializeMusic(FMODEvents.instance.bossTheme);
+                        }
+                    }
                     AudioManager.instance.SetMainThemeDampnessParameter("MainThemeBackground",1);
+                    ResetLevel();
+                    
                 }
                 _curDeadTime += Time.fixedDeltaTime;
                 break;
@@ -144,9 +176,10 @@ public class GameSystem : MonoBehaviour
         }
     }
 
-    protected void ResetLevel()
+    public void ResetLevel()
     {
         Destroy(GameObject.FindWithTag("Level"));
+        Level = null;
     }
 
 
@@ -166,9 +199,22 @@ public class GameSystem : MonoBehaviour
             MainCameraGameObject.transform.position = new Vector3(Player.transform.position.x, Player.transform.position.y, -10);
             ZoomStatus = Zoom.Shop;
             dampness=1;
+            Camera.main.transform.GetChild(0).gameObject.SetActive(true);
             AudioManager.instance.SetMainThemeDampnessParameter("MainThemeBackground", dampness);
             GameObject.FindWithTag("Darkener").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
             GameObject.FindWithTag("DarkenerExcludeMenu").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+            if (((LevelCount - 1) / 6) % 3 == 0)
+            {
+                colorScheme = ColorScheme.Asteroid;
+            }
+            if (((LevelCount - 1) / 6) % 3 == 1)
+            {
+                colorScheme = ColorScheme.Nature;
+            }
+            if (((LevelCount - 1) / 6) % 3 == 2)
+            {
+                colorScheme = ColorScheme.FireIce;
+            }
         }
         
     }
@@ -188,8 +234,20 @@ public class GameSystem : MonoBehaviour
             MainCamera.orthographicSize = CameraSizeZoomedOut;
             MainCameraGameObject.transform.position = new Vector3(0, 0, -10);
             ZoomStatus = Zoom.Level;
+            GameObject.FindWithTag("Overlay").transform.GetChild(0).gameObject.SetActive(true);
             dampness=0;
             AudioManager.instance.SetMainThemeDampnessParameter("MainThemeBackground", dampness);
+            if (!AudioManager.instance.playingMusic)
+            {
+                if (((LevelCount - 1) / 6) % 2 == 0)
+                {
+                    AudioManager.instance.InitializeMusic(FMODEvents.instance.mainTheme);
+                }
+                else
+                {
+                    AudioManager.instance.InitializeMusic(FMODEvents.instance.bossTheme);
+                }
+            }
         }
         
     }
@@ -203,7 +261,8 @@ public class GameSystem : MonoBehaviour
         Shop,
         Level,
         Dying,
-        Dead
+        Dead,
+        Menu
     }
 
     public enum ColorScheme
@@ -217,10 +276,20 @@ public class GameSystem : MonoBehaviour
     {
         if (GameObject.FindWithTag("Player").GetComponent<Player>().currenthp <= 0)
         {
-            AudioManager.instance.StopMusic();
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.death,Player.transform.position);
+            Debug.Log("Died");
+            AudioManager.instance.StopMusic(STOP_MODE.IMMEDIATE);
+            AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.death,Player.transform.position);
             ZoomStatus = Zoom.Dying;
+            GameObject.FindWithTag("Player").GetComponent<Player>().money = moneyLevelStart;
+            target = Target.Shop;
         }
+    }
+
+    public enum Target
+    {
+        Shop,
+        Menu,
+        VictoryScreen
     }
         
 }

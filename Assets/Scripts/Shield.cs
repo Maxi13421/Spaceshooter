@@ -14,11 +14,13 @@ public class Shield : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().ZoomStatus != GameSystem.Zoom.Level)
+        {
+            gameObject.SetActive(false);
+        }
     }
-
     
 
     

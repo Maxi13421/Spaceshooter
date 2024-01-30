@@ -15,6 +15,14 @@ public class Laser : Weapon
         LaserGraphic.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().ZoomStatus != GameSystem.Zoom.Level)
+        {
+            LaserGraphic.SetActive(false);
+        }
+    }
+
     public override void Shoot()
     { 
         RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.parent.position, new Vector2(Width/2,Width/2), 0, Vector2.right,

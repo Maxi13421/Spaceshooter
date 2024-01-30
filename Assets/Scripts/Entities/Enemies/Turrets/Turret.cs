@@ -35,11 +35,11 @@ public abstract class Turret : Enemy
             switch (projectileType)
             {
                 case Projectile.ProjectileType.Homing or Projectile.ProjectileType.Standard:
-                    AudioManager.instance.PlayOneShot(FMODEvents.instance.fireSmall,transform.position);
+                    AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.fireSmall,transform.position);
                     weaponPositions = new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position - transform.position};
                     break;
                 case Projectile.ProjectileType.Shrapnel or Projectile.ProjectileType.Big:
-                    AudioManager.instance.PlayOneShot(FMODEvents.instance.fireBig,transform.position);
+                    AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.fireBig,transform.position);
                     weaponPositions = new[] { new Vector3(0.5f, 0, 0) };
                     break;
             }

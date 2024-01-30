@@ -21,7 +21,8 @@ public class ObjectPool
 
      public GameObject GetPooledObject()
      {
-          
+
+          return GameObject.Instantiate(_gameObject);
           foreach (GameObject gameObject in _objectPool)
           {
                if (!gameObject.activeSelf && !gameObject.IsDestroyed())

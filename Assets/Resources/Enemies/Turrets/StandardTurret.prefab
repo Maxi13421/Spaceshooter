@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visible: 0
+  basicHp: 15
   hp: 15
   currenthp: 15
   isStatic: 0

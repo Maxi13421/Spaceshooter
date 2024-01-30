@@ -9,19 +9,17 @@ public class BigWeapon : Weapon
     
     
     
-    private float _cooldownMicro = 0.1f; //Sonst würde in einem Frame der ganze Cooldown verschossen werden.
     private float _lastShot = float.MinValue;
 
 
     private void Awake()
     {
-        consumption = 0.5f;
     }
     
     
     public override void Shoot()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.fireBig,transform.position);
+        AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.fireBig,transform.position);
         if (Time.time - _lastShot > _cooldownMicro)
         {
             _lastShot = Time.time;

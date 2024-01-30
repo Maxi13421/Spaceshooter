@@ -4,6 +4,7 @@ using UnityEngine.Serialization;
 
 public abstract class Enemy : Entity
 {
+    public float basicHp;
     public float hp;
     public float currenthp;
     public bool isStatic = false;
@@ -15,6 +16,7 @@ public abstract class Enemy : Entity
 
     private void OnEnable()
     {
+        hp =(float)( basicHp * Math.Pow(1.04, GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().LevelCount));
         currenthp = hp;
     }
 
@@ -53,7 +55,7 @@ public abstract class Enemy : Entity
     {
         if (currenthp <= 0)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.explosionBig,transform.position);
+            AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.explosionBig,transform.position);
             gameObject.SetActive(false);
             LifeBoxEdge.SetActive(false);
             LifeBox.SetActive(false);

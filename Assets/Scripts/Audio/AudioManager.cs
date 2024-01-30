@@ -13,7 +13,8 @@ public class AudioManager : MonoBehaviour
     private EventInstance musicEventInstance;
 
     public List<EventInstance> eventInstances;
-    
+
+    public bool playingMusic;
     private void Awake()
     {
         if (instance != null)
@@ -27,12 +28,15 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        InitializeMusic(FMODEvents.instance.mainTheme);
+        InitializeMusic(FMODEvents.instance.titleTheme);
     }
 
-    public void PlayOneShot(EventReference sound, Vector3 worldPos)
+    public void PlayLevelOneShot(EventReference sound, Vector3 worldPos)
     {
-        RuntimeManager.PlayOneShot(sound, worldPos);
+        if (GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().ZoomStatus == GameSystem.Zoom.Level && worldPos.x>=-25)
+        {
+            RuntimeManager.PlayOneShot(sound, worldPos);
+        }
     }
     
 
@@ -41,11 +45,18 @@ public class AudioManager : MonoBehaviour
     {
         musicEventInstance = CreateInstance(musicEventReference);
         musicEventInstance.start();
+        playingMusic = true;
     }
     
-    public void StopMusic()
+    public void StopMusic(STOP_MODE stopMode)
     {
-        musicEventInstance.stop(STOP_MODE.IMMEDIATE);
+        musicEventInstance.stop(stopMode);
+        playingMusic = false;
+    }
+    
+    public void MusicSetPaused(bool pause)
+    {
+        musicEventInstance.setPaused(pause);
     }
 
 

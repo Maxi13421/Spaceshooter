@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c63f6e77ad444078e7d47f13a276628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  consumption: 0.5
+  consumption: 0.25
   WeaponPositions:
   - {x: 1, y: 0, z: 0}

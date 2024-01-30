@@ -158,7 +158,7 @@ public abstract class Level : MonoBehaviour
     {
         float curSpawn = 0;
         GameObject lastSpawn = null;
-        for (int aaa = 0; aaa < 30; aaa++)
+        for (int aaa = 0; aaa < 10 + GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().LevelCount/3; aaa++)
         {
             int nextTileType = GetNextTileType();
             if (aaa == 0)

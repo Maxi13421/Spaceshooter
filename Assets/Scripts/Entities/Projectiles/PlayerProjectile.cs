@@ -15,7 +15,7 @@ public abstract class PlayerProjectile : Projectile
         {
             gameObject.SetActive(false);
             collideWith.currenthp -= damage;
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.explosionSmall,transform.position);
+            AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.explosionSmall,transform.position);
 
 
         }

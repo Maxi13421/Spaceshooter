@@ -98,9 +98,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1596d5a6d35060a48a559b2e285860f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 10
-  damage: 5
+  visible: 0
+  projectileSpeed: 12
+  damage: 3
   lifespan: 1
+  LifeStart: 0
 --- !u!70 &3813102454950747120
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

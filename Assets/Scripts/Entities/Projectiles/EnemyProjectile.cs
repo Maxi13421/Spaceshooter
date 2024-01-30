@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class EnemyProjectile : Projectile
 {
@@ -7,7 +8,7 @@ public abstract class EnemyProjectile : Projectile
         if (other.CompareTag("ObstacleTile"))
         {
             gameObject.SetActive(false);
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.explosionSmall,transform.position);
+            AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.explosionSmall,transform.position);
             return;
         }
         Shield collideWith2 = other.GetComponent<Shield>();
@@ -24,8 +25,8 @@ public abstract class EnemyProjectile : Projectile
         if (collideWith != null)
         {
             gameObject.SetActive(false);
-            collideWith.currenthp -= damage;
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.explosionSmall,transform.position);
+            collideWith.currenthp -=(float) (damage*Math.Pow(1.04,GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().LevelCount));
+            AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.explosionSmall,transform.position);
 
 
         }
