@@ -68,7 +68,6 @@ public class GameSystem : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        Debug.Log(ZoomStatus.ToString());
         switch (ZoomStatus)
         {
             case Zoom.Level:

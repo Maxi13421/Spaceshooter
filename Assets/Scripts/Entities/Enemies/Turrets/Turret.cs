@@ -37,10 +37,11 @@ public abstract class Turret : Enemy
                 case Projectile.ProjectileType.Homing or Projectile.ProjectileType.Standard:
                     AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.fireSmall,transform.position);
                     weaponPositions = new[] { transform.GetChild(0).position-transform.position, transform.GetChild(1).position - transform.position};
+                    Debug.Log(weaponPositions[0].ToString());
                     break;
                 case Projectile.ProjectileType.Shrapnel or Projectile.ProjectileType.Big:
                     AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.fireBig,transform.position);
-                    weaponPositions = new[] { new Vector3(0.5f, 0, 0) };
+                    weaponPositions = new[] { transform.up*1.8f };
                     break;
             }
             

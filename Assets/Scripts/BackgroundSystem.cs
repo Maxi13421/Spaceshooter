@@ -60,12 +60,14 @@ public class BackgroundSystem : MonoBehaviour
                 g = Instantiate(Resources.Load<GameObject>("Background/Planet"),new Vector3(GameObject.FindWithTag("Player").transform.position.x+20,GameObject.FindWithTag("Player").transform.position.y+Random.Range(-4f,4f),10),Quaternion.identity,transform);
 
             }
-            Debug.Log(colour);
+            
             int index = Random.Range(0, 9);
             while (index / 3 == lastPlanet)
             {
                 index = Random.Range(0, 9);
             }
+            Debug.Log(index);
+            Debug.Log("Division: " + (index/3).ToString());
 
             lastPlanet = index;
             switch (colour)
@@ -76,9 +78,11 @@ public class BackgroundSystem : MonoBehaviour
                     break;
                 case GameSystem.ColorScheme.FireIce:
                     g.GetComponent<SpriteRenderer>().sprite = _spritesFireIce[index];
+                    Debug.Log(g.GetComponent<SpriteRenderer>().sprite.ToString());
                     break;
                 case GameSystem.ColorScheme.Nature:
                     g.GetComponent<SpriteRenderer>().sprite = _spritesNature[index];
+                    Debug.Log(g.GetComponent<SpriteRenderer>().sprite.ToString());
                     break;
                     
                 

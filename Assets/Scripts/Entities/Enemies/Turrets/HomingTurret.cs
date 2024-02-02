@@ -15,6 +15,7 @@ public class HomingTurret : Turret
         base.FixedUpdate();
         //transform. ursprüngliches vorne im Sprite
         transform.up = (Player.transform.position - transform.position);
-        
+        transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -48,4 +49,11 @@ public class TestLevel : Level
     {
         return 0;
     }
+
+    protected override void GenerateLevel()
+    {
+        
+    }
 }
+
+

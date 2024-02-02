@@ -154,7 +154,7 @@ public abstract class Level : MonoBehaviour
         Gizmos.DrawLine(new Vector3(-0,Camera.main.orthographicSize,0),new Vector3(0,-Camera.main.orthographicSize,0));
     }
 
-    protected void GenerateLevel()
+    protected virtual void GenerateLevel()
     {
         float curSpawn = 0;
         GameObject lastSpawn = null;

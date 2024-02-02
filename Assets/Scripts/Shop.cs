@@ -258,9 +258,9 @@ public class Shop : MonoBehaviour
         {
             transform.GetChild(11).GetComponent<TextMeshPro>().text = "Increases the ammunition regenerated per second from " +
                                                                       ((float)(player.basicWeaponCooldownRechargePerSecond *
-                                                                             (1 + player.shieldLevel * 0.1))).ToString("F2") +
-                                                                      " auf " + ((float)(player.basicWeaponCooldownRechargePerSecond *
-                                                                          (1 + (player.shieldLevel + 1) * 0.1)))
+                                                                             (1 + player.munitionRegenerationLevel * 0.1))).ToString("F2") +
+                                                                      " to " + ((float)(player.basicWeaponCooldownRechargePerSecond *
+                                                                          (1 + (player.munitionRegenerationLevel + 1) * 0.1)))
                                                                       .ToString("F2") + ".";
         }
         
