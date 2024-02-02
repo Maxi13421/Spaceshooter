@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shop
       objectReference: {fileID: 0}
+    - target: {fileID: 3429698485848194187, guid: 07bc08e314f51e441b41c38853eed347, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3591811488552659379, guid: 07bc08e314f51e441b41c38853eed347, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -953,7 +957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6752bc845738a494d9ce9ab1d962b3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageReduction: 0.5
+  damageReduction: 0.75
 --- !u!50 &744498969
 Rigidbody2D:
   serializedVersion: 4
@@ -1163,6 +1167,10 @@ PrefabInstance:
     - target: {fileID: 2636643297566353407, guid: 9e5ba8d4df1315748aaf5472dc127155, type: 3}
       propertyPath: m_Name
       value: GameSystem
+      objectReference: {fileID: 0}
+    - target: {fileID: 2636643297566353407, guid: 9e5ba8d4df1315748aaf5472dc127155, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2636643297566353407, guid: 9e5ba8d4df1315748aaf5472dc127155, type: 3}
       propertyPath: m_TagString
