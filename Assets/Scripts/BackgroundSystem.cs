@@ -87,7 +87,7 @@ public class BackgroundSystem : MonoBehaviour
                     
                 
             }
-            nextSpawn = Time.time + Random.Range(6f, 15f);
+            nextSpawn = Time.time + Random.Range(8f, 15f);
 
         }
         
@@ -98,4 +98,6 @@ public class BackgroundSystem : MonoBehaviour
     {
        return (10+(GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().LevelCount/6))/3;
     }
+
+    
 }

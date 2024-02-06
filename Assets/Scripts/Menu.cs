@@ -43,7 +43,7 @@ public class Menu : MonoBehaviour
             if (curButton.x < 0) curButton -= newChooseAction;
             if (curButton.y < 0) curButton -= newChooseAction;
             if (curButton.x >= 1) curButton -= newChooseAction;
-            if (curButton.y >= 2) curButton -= newChooseAction;
+            if (curButton.y >= 3) curButton -= newChooseAction;
             
         }
 
@@ -69,10 +69,27 @@ public class Menu : MonoBehaviour
                 gameSystem.ZoomStatus = GameSystem.Zoom.Zoomout;
                 AudioManager.instance.StopMusic(STOP_MODE.ALLOWFADEOUT);
                 Camera.main.transform.GetChild(1).gameObject.SetActive(false);
+                GameObject.FindWithTag("Player").GetComponent<Player>().hp = 100 * GameObject.FindWithTag("GameSystem")
+                    .GetComponent<GameSystem>().easyMultiplier;
+                GameObject.FindWithTag("Player").GetComponent<Player>().currenthp =
+                    GameObject.FindWithTag("Player").GetComponent<Player>().hp;
+                gameSystem.difficulty = GameSystem.Difficulty.Easy;
+                GameObject.FindWithTag("Player").GetComponent<Player>().money = 0;
+                //Camera.main.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            if (activeButton == new Vector2Int(0, 1))
+            {
+                GameSystem gameSystem = GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>();
+                gameSystem.target = GameSystem.Target.Shop;
+                gameSystem.ZoomStatus = GameSystem.Zoom.Zoomout;
+                AudioManager.instance.StopMusic(STOP_MODE.ALLOWFADEOUT);
+                Camera.main.transform.GetChild(1).gameObject.SetActive(false);
+                gameSystem.difficulty = GameSystem.Difficulty.Hard;
+                GameObject.FindWithTag("Player").GetComponent<Player>().money = 0;
                 //Camera.main.transform.GetChild(0).gameObject.SetActive(true);
             }
             
-            if (activeButton == new Vector2Int(0, 1))
+            if (activeButton == new Vector2Int(0, 2))
             {
                 Application.Quit();
             }

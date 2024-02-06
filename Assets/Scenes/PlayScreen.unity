@@ -624,6 +624,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 529545569878262665, guid: d6103e830c55bd14fab1ba9355e08a9f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 4749311934697366227, guid: d6103e830c55bd14fab1ba9355e08a9f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 775220994131248425, guid: d6103e830c55bd14fab1ba9355e08a9f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -1550,6 +1553,10 @@ MonoBehaviour:
   laser: {fileID: 0}
   bigWeapon: {fileID: 0}
   shrapnelWeapon: {fileID: 0}
+  playerStatus: 0
+  invincibilityDuration: 2
+  blinkPeriodDuration: 0.3
+  obstacleDamageEasyPerHP: 0.4
   projectilePrefab: {fileID: 0}
 --- !u!212 &1032899888
 SpriteRenderer:
@@ -2071,6 +2078,116 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1162872778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1162872780}
+  - component: {fileID: 1162872779}
+  m_Layer: 0
+  m_Name: InputManagerDeveloper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1162872779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162872778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da9b484c8e53fd54eb6de482b579da7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinAction:
+    m_Name: Coin
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d9f0d16b-92ea-48cb-92d7-94f555407247
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: 6be1d5bf-be84-4f3e-8699-971ba1f58d81
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Coin
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: b3bf27f0-4e98-43e9-841e-58e5958607ec
+      m_Path: <Gamepad>/dpad/left
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Coin
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 89a5d7f3-ed0e-4fe0-9823-5a49b12631b0
+      m_Path: <Gamepad>/dpad/right
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Coin
+      m_Flags: 8
+    m_Flags: 0
+  levelAction:
+    m_Name: Level
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dd4c3e68-9f8e-47a1-b1bf-465f2a2eafb7
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: 4b8b20ff-ddda-4ad9-89ef-90a60d7efe9d
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Level
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 05f6ade1-6f36-4121-84c3-2dc23a256a10
+      m_Path: <Gamepad>/dpad/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Level
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 719a279d-a39f-4beb-8d5b-e5996d9a5879
+      m_Path: <Gamepad>/dpad/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Level
+      m_Flags: 8
+    m_Flags: 0
+--- !u!4 &1162872780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162872778}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.5531602, y: -2.165051, z: -5.0285425}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1331646722
 GameObject:
   m_ObjectHideFlags: 0
@@ -3511,6 +3628,7 @@ SceneRoots:
   - {fileID: 446846134}
   - {fileID: 1075712923}
   - {fileID: 1755407860}
+  - {fileID: 1162872780}
   - {fileID: 868826459}
   - {fileID: 655385790}
   - {fileID: 486843816}

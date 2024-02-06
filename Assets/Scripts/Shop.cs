@@ -71,7 +71,11 @@ public class Shop : MonoBehaviour
                     player.hpLevel++;
                     transform.GetChild(0).GetComponentInChildren<TextMeshPro>().text =
                         ((int)(10 * Math.Pow(Ramping, player.hpLevel))).ToString();
-                    player.hp = (float)(player.basicHp * (1 + player.hpLevel * 0.1));
+                    
+                    player.hp = (float)(player.basicHp * (1 + player.hpLevel * 0.1) * (GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().difficulty ==
+                        GameSystem.Difficulty.Easy?GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().easyMultiplier:1));
+                    
+                    
                 }
             }
             if (activeButton == new Vector2Int(1, 0))
@@ -188,11 +192,13 @@ public class Shop : MonoBehaviour
             }
             if (activeButton == new Vector2Int(4, 1))
             {
-                Camera.main.transform.GetChild(0).gameObject.SetActive(false);
-                Camera.main.transform.GetChild(1).gameObject.SetActive(true);
+                //Camera.main.transform.GetChild(0).gameObject.SetActive(false);
+                //Camera.main.transform.GetChild(1).gameObject.SetActive(true);
                 GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().LevelCount = 1;
                 GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().moneyLevelStart = 0;
                 GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().colorScheme = GameSystem.ColorScheme.Asteroid;
+                GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().target = GameSystem.Target.Menu;
+                GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().ZoomStatus = GameSystem.Zoom.Dying;
                 GameObject.FindWithTag("Player").GetComponent<Player>().currenthp = 100;
                 GameObject.FindWithTag("Player").GetComponent<Player>().hp = 100;
                 GameObject.FindWithTag("Player").GetComponent<Player>().hpLevel = 0;
@@ -205,9 +211,8 @@ public class Shop : MonoBehaviour
                 GameObject.FindWithTag("Player").GetComponent<Player>().boostCooldownRechargePerSecond= 0.1f;
                 GameObject.FindWithTag("Player").GetComponent<Player>().shieldCooldownRechargePerSecond = 0.1f;
                 GameObject.FindWithTag("Player").GetComponent<Player>().weaponCooldownRechargePerSecond = 0.3f;
-                GameObject.FindWithTag("Player").GetComponent<Player>().money = 0;
-                AudioManager.instance.StopMusic(STOP_MODE.IMMEDIATE);
-                AudioManager.instance.InitializeMusic(FMODEvents.instance.titleThemeWithoutStart);
+                AudioManager.instance.StopMusic(STOP_MODE.ALLOWFADEOUT);
+                //AudioManager.instance.InitializeMusic(FMODEvents.instance.titleThemeWithoutStart);
                 
 
             }
@@ -217,10 +222,26 @@ public class Shop : MonoBehaviour
         {
             transform.GetChild(11).GetComponent<TextMeshPro>().text = "Increases the maximum HP from " +
                                                                       ((int)(player.basicHp *
-                                                                             (1 + player.hpLevel * 0.1))).ToString() +
+                                                                             (1 + player.hpLevel * 0.1) *
+                                                                             (GameObject.FindWithTag("GameSystem")
+                                                                                  .GetComponent<GameSystem>()
+                                                                                  .difficulty ==
+                                                                              GameSystem.Difficulty.Easy
+                                                                                 ? GameObject.FindWithTag("GameSystem")
+                                                                                     .GetComponent<GameSystem>()
+                                                                                     .easyMultiplier
+                                                                                 : 1))).ToString() +
                                                                       " to " + ((int)(player.basicHp *
-                                                                          (1 + (player.hpLevel + 1) * 0.1)))
+                                                                          (1 + (player.hpLevel + 1) * 0.1) *
+                                                                          (GameObject.FindWithTag("GameSystem")
+                                                                               .GetComponent<GameSystem>().difficulty ==
+                                                                           GameSystem.Difficulty.Easy
+                                                                              ? GameObject.FindWithTag("GameSystem")
+                                                                                  .GetComponent<GameSystem>()
+                                                                                  .easyMultiplier
+                                                                              : 1)))
                                                                       .ToString() + ".";
+
         }
         if (activeButton == new Vector2Int(1, 0))
         {

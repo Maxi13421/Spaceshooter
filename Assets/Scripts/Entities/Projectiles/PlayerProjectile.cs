@@ -14,7 +14,14 @@ public abstract class PlayerProjectile : Projectile
         if (collideWith != null)
         {
             gameObject.SetActive(false);
-            collideWith.currenthp -= damage;
+            collideWith.currenthp -= damage *(GameObject.FindWithTag("GameSystem")
+                                                  .GetComponent<GameSystem>()
+                                                  .difficulty ==
+                                              GameSystem.Difficulty.Easy
+                ? GameObject.FindWithTag("GameSystem")
+                    .GetComponent<GameSystem>()
+                    .easyMultiplier
+                : 1);
             AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.explosionSmall,transform.position);
 
 

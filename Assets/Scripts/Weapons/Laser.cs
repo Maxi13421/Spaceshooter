@@ -38,7 +38,14 @@ public class Laser : Weapon
             }
             if (hits[i].collider.gameObject.GetComponent<Enemy>() != null)
             {
-                hits[i].collider.gameObject.GetComponent<Enemy>().currenthp -= DamagePerSecond * Time.fixedDeltaTime;
+                hits[i].collider.gameObject.GetComponent<Enemy>().currenthp -= DamagePerSecond * Time.fixedDeltaTime *(GameObject.FindWithTag("GameSystem")
+                        .GetComponent<GameSystem>()
+                        .difficulty ==
+                    GameSystem.Difficulty.Easy
+                        ? GameObject.FindWithTag("GameSystem")
+                            .GetComponent<GameSystem>()
+                            .easyMultiplier
+                        : 1);
                 
             }
         }

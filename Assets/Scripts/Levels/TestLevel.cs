@@ -1,7 +1,4 @@
-﻿using Unity.VisualScripting;
-using UnityEditorInternal;
-using UnityEngine;
-using UnityEngine.Serialization;
+﻿using UnityEngine;
 
 public class TestLevel : Level
 {

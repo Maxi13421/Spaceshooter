@@ -25,6 +25,8 @@ public class GameSystem : MonoBehaviour
     public float deadDuration = 1;
     private float _curDeadTime = 0;
     public int moneyLevelStart;
+    public Difficulty difficulty = Difficulty.Easy;
+    public float easyMultiplier = 1.5f;
     
     protected virtual void Start()
     {
@@ -136,36 +138,59 @@ public class GameSystem : MonoBehaviour
             case Zoom.Dying:
                 if (GameObject.FindWithTag("Darkener").GetComponent<SpriteRenderer>().color.a>=1)
                 {
-                    ZoomStatus = Zoom.Dead;
-                    ResetLevel();
-                    GameObject.FindWithTag("Overlay").transform.GetChild(0).gameObject.SetActive(false);
-                    _curDeadTime = 0;
-                    Camera.main.transform.GetChild(0).gameObject.SetActive(true);
-                    break;
+                    switch (target)
+                    {
+                        case Target.Shop:
+                            ZoomStatus = Zoom.Dead;
+                            ResetLevel();
+                            GameObject.FindWithTag("Overlay").transform.GetChild(0).gameObject.SetActive(false);
+                            _curDeadTime = 0;
+                            Camera.main.transform.GetChild(0).gameObject.SetActive(true);
+                            break;
+                        case Target.Menu:
+                            ZoomStatus = Zoom.Dead;
+                            Camera.main.transform.GetChild(0).gameObject.SetActive(false);
+                            Camera.main.transform.GetChild(1).gameObject.SetActive(true);
+                            _curDeadTime = 0;
+                            break;
+                    }
+                    
                 }
                 GameObject.FindWithTag("Darkener").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, GameObject.FindWithTag("Darkener").GetComponent<SpriteRenderer>().color.a+Time.fixedDeltaTime*dyingFadeOutDuration);
                 break;
             case Zoom.Dead:
                 if (_curDeadTime >= deadDuration)
                 {
-                    MainCameraGameObject.transform.position = new Vector3(Player.transform.position.x,Player.transform.position.y,-10);
-                    MainCamera.orthographicSize = CameraSizeZoomedIn;
-                    GameObject.FindWithTag("Darkener").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
-                    GameObject.FindWithTag("DarkenerExcludeMenu").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-                    ZoomStatus = Zoom.Shop;
-                    if (!AudioManager.instance.playingMusic)
+                    switch (target)
                     {
-                        if (((LevelCount - 1) / 6) % 2 == 0)
-                        {
-                            AudioManager.instance.InitializeMusic(FMODEvents.instance.mainTheme);
-                        }
-                        else
-                        {
-                            AudioManager.instance.InitializeMusic(FMODEvents.instance.bossTheme);
-                        }
+                        case Target.Shop:
+                            MainCameraGameObject.transform.position = new Vector3(Player.transform.position.x,Player.transform.position.y,-10);
+                            MainCamera.orthographicSize = CameraSizeZoomedIn;
+                            GameObject.FindWithTag("Darkener").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                            GameObject.FindWithTag("DarkenerExcludeMenu").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+                            ZoomStatus = Zoom.Shop;
+                            if (!AudioManager.instance.playingMusic)
+                            {
+                                if (((LevelCount - 1) / 6) % 2 == 0)
+                                {
+                                    AudioManager.instance.InitializeMusic(FMODEvents.instance.mainTheme);
+                                }
+                                else
+                                {
+                                    AudioManager.instance.InitializeMusic(FMODEvents.instance.bossTheme);
+                                }
+                            }
+                            AudioManager.instance.SetMainThemeDampnessParameter("MainThemeBackground",1);
+                            ResetLevel();
+                            break;
+                        case Target.Menu:
+                            AudioManager.instance.InitializeMusic(FMODEvents.instance.titleThemeWithoutStart);
+                            GameObject.FindWithTag("Darkener").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                            GameObject.FindWithTag("DarkenerExcludeMenu").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                            ZoomStatus = Zoom.Menu;
+                            break;
                     }
-                    AudioManager.instance.SetMainThemeDampnessParameter("MainThemeBackground",1);
-                    ResetLevel();
+                    
                     
                 }
                 _curDeadTime += Time.fixedDeltaTime;
@@ -289,6 +314,12 @@ public class GameSystem : MonoBehaviour
         Shop,
         Menu,
         VictoryScreen
+    }
+    
+    public enum Difficulty
+    {
+        Easy,
+        Hard
     }
         
 }

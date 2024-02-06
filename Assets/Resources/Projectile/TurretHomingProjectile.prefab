@@ -136,6 +136,7 @@ MonoBehaviour:
   visible: 0
   projectileSpeed: 10
   damage: 5
-  lifespan: 5
+  lifespan: 3
+  LifeStart: 0
   ThresholdAngle: 120
   TurningAnglePerSecond: 120

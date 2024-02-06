@@ -25,7 +25,10 @@ public abstract class EnemyProjectile : Projectile
         if (collideWith != null)
         {
             gameObject.SetActive(false);
-            collideWith.currenthp -=(float) (damage*Math.Pow(1.04,GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().LevelCount));
+            if (collideWith.playerStatus == Player.PlayerStatus.Vulnerable)
+            {
+                collideWith.currenthp -=(float) (damage*Math.Pow(1.04,GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().LevelCount));
+            }
             AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.explosionSmall,transform.position);
 
 

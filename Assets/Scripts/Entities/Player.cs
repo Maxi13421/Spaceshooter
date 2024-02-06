@@ -60,6 +60,12 @@ public class Player : Entity
     public Weapon bigWeapon;
     public Weapon shrapnelWeapon;
     
+    public PlayerStatus playerStatus = PlayerStatus.Vulnerable;
+    public float invincibilityDuration;
+    public float blinkPeriodDuration;
+    public float obstacleDamageEasyPerHP = 0.4f;
+    
+    
 
     public GameObject projectilePrefab;
     
@@ -224,12 +230,37 @@ public class Player : Entity
 
         if (other.CompareTag("ObstacleTile"))
         {
-            currenthp = 0;
+            switch (GameObject.FindWithTag("GameSystem").GetComponent<GameSystem>().difficulty)
+            {
+                case GameSystem.Difficulty.Easy:
+                    switch (playerStatus)
+                    {
+                        case PlayerStatus.Vulnerable:
+                            currenthp -= hp * obstacleDamageEasyPerHP;
+                            if (currenthp > 0)
+                            {
+                                playerStatus = PlayerStatus.Invincible;
+                                AudioManager.instance.PlayLevelOneShot(FMODEvents.instance.death,transform.position);
+                                StartCoroutine(Blink(invincibilityDuration));
+                            }
+                            break;
+                        case PlayerStatus.Invincible:
+                            break;
+                    }
+                    break;
+                case GameSystem.Difficulty.Hard:
+                    currenthp = 0;
+                    break;
+                    
+            }
         }
 
         if (other.GetComponent<Enemy>() != null)
         {
-            currenthp -= other.GetComponent<Enemy>().currenthp;
+            if (playerStatus == PlayerStatus.Vulnerable)
+            {
+                currenthp -= other.GetComponent<Enemy>().currenthp;
+            }
             other.GetComponent<Enemy>().currenthp = 0;
         }
     }
@@ -322,5 +353,52 @@ public class Player : Entity
         _boostCooldownCur = boostCooldownMax;
         _shieldCooldownCur = shieldCooldownMax;
         _weaponCooldownCur = weaponCooldownMax;
+    }
+
+    private IEnumerator Blink(float time)
+    {
+        while (time > 0)
+        {
+
+            if (time > blinkPeriodDuration / 2)
+            {
+                GetComponent<SpriteRenderer>().enabled = false;
+                yield return new WaitForSeconds(blinkPeriodDuration / 2);
+            }
+            else if (time > 0)
+            {
+                GetComponent<SpriteRenderer>().enabled = false;
+                yield return new WaitForSeconds(time);
+                playerStatus = PlayerStatus.Vulnerable;
+                GetComponent<SpriteRenderer>().enabled = true;
+                yield break;
+            }
+
+            time -= blinkPeriodDuration / 2;
+
+            if (time > blinkPeriodDuration / 2)
+            {
+                GetComponent<SpriteRenderer>().enabled = true;
+                yield return new WaitForSeconds(blinkPeriodDuration / 2);
+            }
+            else if (time > 0)
+            {
+                GetComponent<SpriteRenderer>().enabled = true;
+                yield return new WaitForSeconds(time);
+                playerStatus = PlayerStatus.Vulnerable;
+                yield break;
+            }
+
+            time -= blinkPeriodDuration / 2;
+        }
+        playerStatus = PlayerStatus.Vulnerable;
+
+    }
+    
+    
+    public enum PlayerStatus
+    {
+        Vulnerable,
+        Invincible
     }
 }
